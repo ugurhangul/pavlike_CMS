@@ -9,7 +9,6 @@ namespace pavlikeMVC.Controllers
     {
         public ActionResult Index()
         {
-            new Configuration().Seed(new Context());
             return View();
         }
 

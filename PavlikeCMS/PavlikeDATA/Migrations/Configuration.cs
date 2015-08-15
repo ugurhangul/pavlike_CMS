@@ -5,20 +5,18 @@ using PavlikeDATA.Models;
 
 namespace PavlikeDATA.Migrations
 {
-    public class Configuration : DbMigrationsConfiguration<Context>
+    internal sealed class Configuration : DbMigrationsConfiguration<Context>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
             AutomaticMigrationDataLossAllowed = true;
             ContextKey = "PavlikeDATA.Models.Context";
-       
-        }
 
-        public void Seed(Context context)
+        }
+        protected override void Seed(Context context)
         {
-            ApplicationDbContext.Create();
-            var usercontext = new ApplicationDbContext();
+
             var passwordHash = new PasswordHasher();
             var user = new ApplicationUser
             {
@@ -28,8 +26,7 @@ namespace PavlikeDATA.Migrations
                 Email = "ugurhangul@sapmazbilisim.com",
                 EmailConfirmed = true
             };
-            usercontext.Users.AddOrUpdate(c=>c.UserName,user);
-            usercontext.SaveChanges();
+            context.Users.AddOrUpdate(c => c.UserName, user);
             context.Authors.AddOrUpdate(c => c.Name, new Author
             {
                 UserGuid = user.Id,
@@ -53,10 +50,11 @@ namespace PavlikeDATA.Migrations
                 MailServerSsl = false,
                 SliderHeight = 900,
                 SliderWidht = 1440
-                
+
             });
 
             context.SaveChanges();
+            base.Seed(context);
         }
     }
 }
