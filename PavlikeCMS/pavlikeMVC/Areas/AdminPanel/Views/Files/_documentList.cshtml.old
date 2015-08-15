@@ -1,0 +1,36 @@
+﻿@model IEnumerable<PavlikeDATA.Models.Document>
+
+@*<script src="~/Scripts/pavlikeLibrary.js"></script>*@
+
+<table class="table table-striped table-borderless table-header-bg">
+    <thead>
+        <tr>
+
+            <th class="hidden-xs" style="width: 15%;"> @Html.DisplayNameFor(model => model.Title)</th>
+            <th class="hidden-xs" style="width: 15%;">@Html.DisplayNameFor(model => model.Author.Name)</th>
+            <th class="hidden-xs" style="width: 15%;">@Html.DisplayNameFor(model => model.Published)</th>
+            <th class="hidden-xs" style="width: 15%;">@Html.DisplayNameFor(model => model.File.Url)</th>
+            <th class="text-center" style="width: 100px;">EYLEMLER</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Title)</td>
+                <td>@Html.DisplayFor(modelItem => item.Author.Name)</td>
+                <td class="hidden-xs">
+                    <span class="label label-success">@Html.DisplayFor(modelItem => item.Published)</span>
+                </td>
+                <td><a href="@Url.Content(item.File.Url)">İndir</a></td>
+
+                <td class="text-center">
+                    <div class="btn-group">
+                        <button title="@item.Title - Düzenle" link="@Url.Action("_documentEdit",new {@id= item.Id})" confirmtext="Kaydet" modal-size="" form="documentForm" item-id="@item.Id" class="btn btn-xs btn-default actionElement" type="button"  data-original-title="Düzenle"><i class="fa fa-pencil"></i></button>
+                        <button title="@item.Title - Sil" link="@Url.Action("_documentDelete",new {@id= item.Id})" confirmtext="Sil" modal-size="" form="documentForm" item-id="@item.Id" class="btn btn-xs btn-default actionElement" type="button"  data-original-title="Sil"><i class="fa fa-times"></i></button>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

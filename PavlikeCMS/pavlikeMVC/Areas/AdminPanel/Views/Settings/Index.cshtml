@@ -1,0 +1,238 @@
+﻿@model PavlikeDATA.Models.Settings
+
+@{
+    ViewBag.Title = "Ayarlar";
+    Layout = "~/Areas/AdminPanel/Views/Shared/_AdminPanelLayout.cshtml";
+}
+@using (Html.BeginForm("Index", "Settings", FormMethod.Post, new { enctype = "multipart/form-data", @class = "js-validation-material form-horizontal push-10-t push-10" }))
+{
+
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.Id)
+    <div class="content">
+        <div class="row">
+
+            <div class="col-sm-12 col-lg-6">
+                <div class="block block-themed">
+                    <div class="block-header bg-primary">
+                        <ul class="block-options">
+                            <li>
+                                <button type="button"><i class="si si-settings"></i></button>
+                            </li>
+                        </ul>
+                        <h3 class="block-title">Site Ayarları</h3>
+                    </div>
+                    <div class="block-content block-content-narrow">
+
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                <div class="form-material form-material-primary">
+                                    <img style="width: 40%;margin-bottom:1%"  src="@Url.Content(new PavlikeDATA.Repos.FileRepository().FindbyId(Model.Logo.FileId).Url)" />
+                                    
+                                    @Html.HiddenFor(model => model.LogoId, new {htmlAttributes = new {@class = "form-control", @placeholder = "Sayfa Adı"}})
+                                    <input type="file" id="logoFile" name="logoFile"/>
+                                    @Html.LabelFor(model => model.LogoId)
+                                    @Html.ValidationMessageFor(m => m.LogoId, null, new {@class = "help-block text-right help-block text-right text-danger"})
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                <div class="form-material form-material-primary">
+                                    @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control", @placeholder = "Sayfa Adı" } })
+                                    @Html.LabelFor(model => model.Title)
+                                    @Html.ValidationMessageFor(m => m.Title, null, new { @class = "help-block text-right help-block text-right text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                <div class="form-material form-material-primary">
+                                    @Html.TextAreaFor(model => model.Description, new { @rows = "3", @class = "form-control", @placeholder = "Sayfa Açıklaması" })
+                                    @Html.LabelFor(model => model.Description)
+                                    @Html.ValidationMessageFor(m => m.Description, null, new { @class = "help-block text-right help-block text-right text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                <div class="form-material form-material-primary">
+                                    @Html.EditorFor(model => model.Url, new { htmlAttributes = new { @class = "form-control", @placeholder = "Site Adresi" } })
+                                    @Html.LabelFor(model => model.Url)
+                                    @Html.ValidationMessageFor(m => m.Url, null, new { @class = "help-block text-right help-block text-right text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                <div class="form-material form-material-primary">
+                                    @Html.EditorFor(model => model.AdminEmail, new { htmlAttributes = new { @class = "form-control", @placeholder = "Site Adresi" } })
+                                    @Html.LabelFor(model => model.AdminEmail)
+                                    @Html.ValidationMessageFor(m => m.AdminEmail, null, new { @class = "help-block text-right help-block text-right text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                <div class="form-material form-material-primary">
+                                    @Html.EditorFor(model => model.MetaTags, new { htmlAttributes = new { @class = "js-tags-input form-control", @placeholder = "Etiketler" } })
+                                    @Html.LabelFor(model => model.MetaTags)
+                                    @Html.ValidationMessageFor(m => m.MetaTags, null, new { @class = "help-block text-right help-block text-right text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-12 col-lg-6">
+                <div class="block block-themed">
+                    <div class="block-header bg-primary">
+                        <ul class="block-options">
+                            <li>
+                                <button type="button"><i class="si si-settings"></i></button>
+                            </li>
+                        </ul>
+                        <h3 class="block-title">Mail Ayarları</h3>
+                    </div>
+                    <div class="block-content">
+
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                <div class="form-material form-material-primary">
+                                    @Html.EditorFor(model => model.MailServer, new { htmlAttributes = new { @class = "form-control", @placeholder = "sitem@sitem.com" } })
+                                    @Html.LabelFor(model => model.MailServer)
+                                    @Html.ValidationMessageFor(m => m.MailServer, null, new { @class = "help-block text-right help-block text-right text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                <div class="form-material form-material-primary">
+                                    @Html.EditorFor(model => model.MailPort, new { htmlAttributes = new { @class = "form-control", @placeholder = "587" } })
+                                    @Html.LabelFor(model => model.MailPort)
+                                    @Html.ValidationMessageFor(m => m.MailPort, null, new { @class = "help-block text-right help-block text-right text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                <div class="form-material form-material-primary">
+                                    @Html.EditorFor(model => model.SenderEMail, new { htmlAttributes = new { @class = "form-control", @placeholder = "info@sitem.com" } })
+                                    @Html.LabelFor(model => model.SenderEMail)
+                                    @Html.ValidationMessageFor(m => m.SenderEMail, null, new { @class = "help-block text-right help-block text-right text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                <div class="form-material form-material-primary">
+                                    @Html.EditorFor(model => model.SenderPassword, new { htmlAttributes = new { @class = "form-control", @placeholder = "*******" } })
+                                    @Html.LabelFor(model => model.SenderPassword)
+                                    @Html.ValidationMessageFor(m => m.SenderPassword, null, new { @class = "help-block text-right help-block text-right text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                <div class="form-material form-material-primary">
+                                    @Html.EditorFor(model => model.SenderDisplayName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Pavlike Web Application and Solutions" } })
+                                    @Html.LabelFor(model => model.SenderDisplayName)
+                                    @Html.ValidationMessageFor(m => m.SenderDisplayName, null, new { @class = "help-block text-right help-block text-right text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                <div class="form-material form-material-primary">
+                                    @Html.CheckBoxFor(model => model.MailServerSsl)
+                                    @Html.LabelFor(model => model.MailServerSsl)
+                                    @Html.ValidationMessageFor(m => m.MailServerSsl, null, new { @class = "help-block text-right help-block text-right text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-lg-6 pull-left">
+                <div class="block block-themed">
+                    <div class="block-header bg-primary">
+                        <ul class="block-options">
+                            <li>
+                                <button type="button"><i class="si si-settings"></i></button>
+                            </li>
+                        </ul>
+                        <h3 class="block-title">Slider Ayarları</h3>
+                    </div>
+                    <div class="block-content">
+
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                <div class="form-material form-material-primary">
+                                    @Html.EditorFor(model => model.SliderHeight, new { htmlAttributes = new { @class = "form-control", @placeholder = "900" } })
+                                    @Html.LabelFor(model => model.SliderHeight)
+                                    @Html.ValidationMessageFor(m => m.SliderHeight, null, new { @class = "help-block text-right help-block text-right text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                <div class="form-material form-material-primary">
+                                    @Html.EditorFor(model => model.SliderWidht, new { htmlAttributes = new { @class = "form-control", @placeholder = "1440" } })
+                                    @Html.LabelFor(model => model.SliderWidht)
+                                    @Html.ValidationMessageFor(m => m.SliderWidht, null, new { @class = "help-block text-right help-block text-right text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-lg-6 pull-right">
+                <div class="block block-themed">
+
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <div class="form-material">
+
+                                <div class="col-lg-2">
+                                    <div class="form-material">
+                                        <input type="submit" value="Kaydet" class="btn btn-primary" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+<script>
+    jQuery('.js-tags-input').tagsInput({
+        defaultText: 'Ekle',
+        removeWithBackspace: true,
+        delimiter: [',']
+    });
+</script>

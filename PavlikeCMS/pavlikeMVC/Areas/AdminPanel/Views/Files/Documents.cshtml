@@ -1,0 +1,66 @@
+﻿@model IEnumerable<PavlikeDATA.Models.Document>
+
+@{
+    ViewBag.Title = "Belgeler";
+    Layout = "~/Areas/AdminPanel/Views/Shared/_AdminPanelLayout.cshtml";
+}
+<div class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="block">
+                <div class="block-header">
+                    <a class="btn btn-success push-5-r push-10" href="@Url.Action("DocumentCreate")" title="Yeni Belge Ekle" confirmtext="Ekle" modal-size="" form="documentForm" type="button"><i class="fa fa-plus"></i>Yeni Döküman Ekle</a>
+                </div>
+                <div class="block-content">
+                    <table class="table table-striped table-borderless table-header-bg">
+                        <thead>
+                        <tr>
+
+                            <th class="hidden-xs" style="width: 15%;"> @Html.DisplayNameFor(model => model.Title)</th>
+                            <th class="hidden-xs" style="width: 15%;">@Html.DisplayNameFor(model => model.Author.Name)</th>
+                            <th class="hidden-xs" style="width: 15%;">@Html.DisplayNameFor(model => model.Published)</th>
+                            <th class="hidden-xs" style="width: 15%;">@Html.DisplayNameFor(model => model.File.Url)</th>
+                            <th class="text-center" style="width: 100px;">EYLEMLER</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(modelItem => item.Title)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Author.Name)</td>
+                                <td class="hidden-xs">
+                                    <span class="label label-success">@Html.DisplayFor(modelItem => item.Published)</span>
+                                </td>
+                                <td><a href="@Url.Content(item.File.Url)">İndir</a></td>
+
+                                <td class="text-center">
+                                    <div class="btn-group">
+                                        <a title="@item.Title - Düzenle" href="@Url.Action("DocumentEdit", new {@id = item.Id})" confirmtext="Kaydet" modal-size="" form="documentForm" item-id="@item.Id" class="btn btn-xs btn-default actionElement" type="button" data-original-title="Düzenle"><i class="fa fa-pencil"></i></a>
+                                        <button title="@item.Title - Sil" id="documentDelete" confirmtext="Sil" modal-size="" form="documentForm" item-id="@item.Id" class="btn btn-xs btn-default" type="button" data-original-title="Sil"><i class="fa fa-times"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $("#documentDelete").on("click", function () {
+        var itemid = $(this).attr("item-id");
+        var res = confirm("Silmek için onay verin");
+        if (res) {
+            $.post("@Url.Action("_documentDelete")", { id: itemid });
+            location.reload();
+        } else {
+            toastr["warning"]("İstek iptal edildi.");
+        }
+
+
+    });
+
+</script>

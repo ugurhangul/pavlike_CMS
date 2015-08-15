@@ -1,0 +1,21 @@
+﻿@{
+    Layout = null;
+}
+
+@using pavlikeLibrary
+
+@if (TempData.ContainsKey("Toastr"))
+{
+    Toastr toastr = TempData["Toastr"] as Toastr;
+    if (toastr != null)
+    {
+        <script>
+
+            @foreach (ToastMessage message in toastr.ToastMessages)
+        {
+          string toastTypeValue = message.ToastType.ToString("G").ToLower();
+        @:toastr['@toastTypeValue.Replace("ı","i")']('@message.Message', '@message.Title');
+                               }
+        </script>
+    }
+}

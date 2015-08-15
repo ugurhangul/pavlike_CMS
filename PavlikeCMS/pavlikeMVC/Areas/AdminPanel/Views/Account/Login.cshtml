@@ -1,0 +1,112 @@
+﻿@using pavlikeMVC.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "Giriş Yap";
+}
+<!DOCTYPE html>
+<!--[if IE 9]>         <html class="ie9 no-focus"> <![endif]-->
+<!--[if gt IE 9]><!-->
+<html class="no-focus">
+ <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+
+    <title>OneUI - shared on themelock.com</title>
+
+    <meta name="description" content="OneUI - Admin Dashboard Template & UI Framework created by pixelcave and published on Themeforest">
+    <meta name="author" content="pixelcave">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0">
+
+    <link rel="stylesheet" id="css-main" href="~/Content/pavlikeCMS.css">
+
+    <!-- You can include a specific file from css/themes/ folder to alter the default color theme of the template. eg: -->
+    <!-- <link rel="stylesheet" id="css-theme" href="assets/css/themes/flat.min.css"> -->
+    <!-- END Stylesheets -->
+</head>
+<body>
+
+<!-- Login Content -->
+<div class="content overflow-hidden">
+    <div class="row">
+        <div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4">
+            <!-- Login Block -->
+            <div class="block block-themed animated fadeIn">
+                <div class="block-header bg-primary">
+                    <ul class="block-options">
+                        <li>
+                            <a href="base_pages_reminder.html">Şifremi Unuttum?</a>
+                        </li>
+                        <li>
+                            <a href="base_pages_register.html" data-toggle="tooltip" data-placement="left" title="Yeni Kullanıcı"><i class="si si-plus"></i></a>
+                        </li>
+                    </ul>
+                    <h3 class="block-title">Giriş</h3>
+                </div>
+                <div class="block-content block-content-full block-content-narrow">
+                    <!-- Login Title -->
+                    <h1 class="h2 font-w600 push-30-t push-5">pavlikeCMS</h1>
+                    <p>Hoşheldiniz, lütfen giriş yapınız.</p>
+                    @using (Html.BeginForm("Login", "Account", new {ReturnUrl = ViewBag.ReturnUrl}, FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+                        <div class="form-group">
+
+                            <div class="form-group">
+                                <div class="col-xs-12">
+                                    <div class="form-material form-material-primary floating">
+                                        @Html.TextBoxFor(m => m.Email, new {@class = "form-control"})
+                                        @*<input class="form-control" type="text" id="login-username" name="login-username">*@
+                                        <label for="login-username">Kullanıcı Adı</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-xs-12">
+                                    <div class="form-material form-material-primary floating">
+                                        @Html.PasswordFor(m => m.Password, new {@class = "form-control"})
+                                        @*<input class="form-control" type="password" id="login-password" name="login-password">*@
+                                        <label for="login-password">Şifre</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-xs-12">
+                                    <label class="css-input switch switch-sm switch-primary">
+                                        <input type="checkbox" id="login-remember-me" name="login-remember-me"><span></span> Beni Hatırla.
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-xs-12 col-sm-6 col-md-4">
+                                    <button class="btn btn-block btn-primary" type="submit"><i class="si si-login pull-right"></i> Giriş</button>
+                                </div>
+                            </div>
+                        </div>
+
+                            @* Enable this once you have account confirmation enabled for password reset functionality
+                                <p>
+                                    @Html.ActionLink("Forgot your password?", "ForgotPassword")
+                                </p>*@
+                    }
+                    <!-- END Login Form -->
+                </div>
+            </div>
+            <!-- END Login Block -->
+        </div>
+    </div>
+</div>
+
+<div class="col-md-4">
+    <section id="socialLoginForm">
+        @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel {ReturnUrl = ViewBag.ReturnUrl})
+    </section>
+</div>
+
+<!-- END Login Content -->
+@*@section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
+        }*@
+</body>
+</html>

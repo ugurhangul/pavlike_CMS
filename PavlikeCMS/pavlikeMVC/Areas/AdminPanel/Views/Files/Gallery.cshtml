@@ -1,0 +1,90 @@
+﻿@using PavlikeDATA.Repos
+@model  List<PavlikeDATA.Models.Album>
+
+@{
+    ViewBag.Title = "Galeri - Albümler";
+    Layout = "~/Areas/AdminPanel/Views/Shared/_AdminPanelLayout.cshtml";
+}
+
+
+<div class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="content content-narrow">
+                <div class="content-grid push-50">
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-4 col-lg-4">
+                            <a class="block block-link-hover3 text-center" href="@Url.Action("_galleryCreate")">
+                                <div class="block-content block-content-full">
+                                    <i class="si si-docs fa-4x text-danger"></i>
+                                    <div class="font-w600 push-15-t">Yeni Albüm Oluştur</div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-xs-6 col-sm-4 col-lg-4">
+                            <a class="block block-link-hover3 text-center" href="#">
+                                <div class="block-content block-content-full">
+                                    <i class="si si-grid fa-4x text-primary-darker">@ViewBag.AlbumCount</i>
+                                    <div class="font-w600 push-15-t">Album </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-xs-6 col-sm-4 col-lg-4">
+                            <a class="block block-link-hover3 text-center" href="@Url.Action("_mediaList")">
+>
+                                <div class="block-content block-content-full">
+                                    <i class="si si-docs fa-4x text-danger">@ViewBag.MediaCount</i>
+                                    <div class="font-w600 push-15-t">Görsel</div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- END Icon Tiles -->
+                <div class="row">
+                    <div class="row items-push js-gallery-advanced">
+
+
+                        @foreach (var item in Model)
+                        {
+                            <div class="col-sm-6 col-md-4 col-lg-3 animated fadeIn">
+                                <div class="img-container fx-img-rotate-r">
+                                    <img class="img-responsive" style="height: 242px;" src="@Url.Content((item.AlbumMediaCollection.Count  != 0)? new FileRepository().FindbyId(item.AlbumMediaCollection.FirstOrDefault().Media.FileId).Url:"blabla")" alt="">
+                                    <div class="img-options">
+                                        <div class="img-options-content">
+                                            <h3 class="font-w400 text-white push-5">@item.Title</h3>
+
+                                            <button class="btn btn-sm btn-warning img-lightbox albumEdit" item-title="@item.Title" item-id="@item.Id">
+                                                <i class="fa fa-pencil"></i> Başlık Düzenle
+                                            </button>
+                                            <div class="btn-group btn-group-sm">
+                                                <a class="btn btn-default" href="@Url.Action("GalleryView",new {item.Id})" item-id="@item.Id"><i class="fa fa-search-plus"></i> İncele</a>
+                                                <button class="btn btn-default albumDelete" item-id="@item.Id"><i class="fa fa-times"></i> Sil</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+    $(".albumEdit").on("click", function () {
+        var item = $(this);
+        var title = window.prompt("Başlığı Giriniz", item.attr("item-title"));
+        $.post("@Url.Action("_galleryEdit")", { id: item.attr("item-id"), baslik: title });
+    });
+    $(".albumDelete").on("click", function () {
+        var item = $(this);
+        var res = confirm("Silinsin mi?");
+        if (res === true) {
+            $.post("@Url.Action("_galleryDelete")", { id: item.attr("item-id") });
+            location.reload();
+        }
+    });
+</script>

@@ -1,0 +1,43 @@
+﻿@{
+    ViewBag.Title = "Dosyalar";
+    Layout = "~/Areas/AdminPanel/Views/Shared/_AdminPanelLayout.cshtml";
+}
+
+<div class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="content content-narrow">
+                <div class="content-grid push-50">
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-4 col-lg-4">
+                            <a class="block block-link-hover3 text-center" href="@Url.Action("Gallery")">
+                                <div class="block-content block-content-full">
+                                    <i class="si si-grid fa-4x text-primary-darker"></i>
+                                    <div class="font-w600 push-15-t">Galeri</div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-xs-6 col-sm-4 col-lg-4">
+                            <a class="block block-link-hover3 text-center" href="@Url.Action("Documents")">
+                                <div class="block-content block-content-full">
+                                    <i class="si si-docs fa-4x text-danger"></i>
+                                    <div class="font-w600 push-15-t">Kütüphane</div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-xs-6 col-sm-4 col-lg-4">
+                            <a class="block block-link-hover3 text-center" href="@Url.Action("Slider")">
+                                <div class="block-content block-content-full">
+                                    <i class="si si-picture fa-4x text-warning"></i>
+                                    <div class="font-w600 push-15-t">Sliderlar</div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- END Icon Tiles -->
+
+            </div>
+        </div>
+    </div>
+</div>

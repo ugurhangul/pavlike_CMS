@@ -1,0 +1,124 @@
+﻿@model IEnumerable<PavlikeDATA.Models.Page>
+
+<table class="table table-striped table-borderless table-header-bg">
+    <thead>
+        <tr>
+            <th class="text-center" style="width: 50px;">#</th>
+            <th>@Html.DisplayNameFor(model => model.Title)</th>
+            <th>ÜST SAYFA</th>
+            <th class="hidden-xs" style="width: 15%;">@Html.DisplayNameFor(model => model.Author.Name)</th>
+            <th class="hidden-xs" style="width: 15%;">@Html.DisplayNameFor(model => model.Published)</th>
+            <th class="hidden-xs" style="width: 15%;">@Html.DisplayNameFor(model => model.Url)</th>
+            <th class="text-center" style="width: 100px;">EYLEMLER</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="text-center">@Html.DisplayFor(modelItem => item.PageOrder)</td>
+                <td>@Html.DisplayFor(modelItem => item.Title)</td>
+                <td>@Html.DisplayFor(modelItem => item.RootPage.Title)</td>
+                <td>@Html.DisplayFor(modelItem => item.Author.Name)</td>
+
+                <td class="hidden-xs">
+                    <span class="label label-success">@Html.DisplayFor(modelItem => item.Published)</span>
+                </td>
+                <td>@Html.DisplayFor(modelItem => item.Url)</td>
+
+                <td class="text-center">
+                    <div class="btn-group">
+                        <button onclick="ActionElement(this)" link="@Url.Action("_Edit",new {@id=item.Id})" title="@item.Title - Düzenle" confirmText="Kaydet" form="pageForm" class="btn btn-xs btn-default" type="button"><i class="fa fa-pencil"></i></button>
+                        <button onclick="ActionElement(this)" link="@Url.Action("_Delete",new {@id=item.Id})" title="@item.Title - Sil" confirmText="Sil" form="" class="btn btn-xs btn-default" type="button" data-toggle="tooltip" data-original-title="Sil"><i class="fa fa-times"></i></button>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+
+
+    @*//Modal init
+    var modalDiv = $("#bootstrap-Modal");
+    var modalContent = modalDiv.find(".block-content");
+    var modalTitle = modalDiv.find(".block-title");
+    var modalConfirm = modalDiv.find(".btn-primary");
+
+    // New page action
+ function newPage() {
+
+        $.get("@Url.Action("_Create")", function (data) {
+            modalDiv.modal("show");
+            modalContent.html(data);
+            modalTitle.html("Yeni Sayfa Ekle");
+            modalConfirm.attr("link", "@Url.Action("_Create")");
+            modalConfirm.html("Ekle");
+            modalConfirm.attr("onclick","Confirm()");
+            
+        });
+    };
+
+
+    //edit page action
+    function EditPage() {
+        var item = $(this);
+        $.get("@Url.Action("_Edit")", { id: item.attr("item-id") }, function (data) {
+
+            modalDiv.modal("show");
+            modalContent.html(data);
+            modalTitle.html("Sayfayı Düzenle - " + item.attr("item-title"));
+            modalConfirm.attr("link", "@Url.Action("_Edit")");
+            modalConfirm.html("Kaydet");
+
+        });
+
+    };
+
+
+
+    //delete page action
+   function DeletePage() {
+        var item = $(this);
+        modalDiv.modal("show");
+        modalContent.html("Sayfayı silmek istediğinize emin misiniz ?");
+        modalTitle.html("Sayfayı Sil - " + item.attr("item-title") + " !");
+        modalConfirm.attr("link", "@Url.Action("_Delete")" + "?id=" + item.attr("item-id"));
+
+        modalConfirm.html("Sil");
+
+    };
+
+
+    //Confirm button action
+   function Confirm(event) {
+        if (!$('#pageForm').length) {
+            $.post(modalConfirm.attr("link"), $("#pageForm").serializeArray(), function (data) {
+                if (data === "True") {
+                    modalDiv.modal("hide");
+                    refreshList("@Url.Action("_PageList")", "pageList");
+                }
+            });
+        } else {
+            if ($('#pageForm').valid()) {
+                $.post(modalConfirm.attr("link"), $("#pageForm").serializeArray(), function (data) {
+                    if (data === "True") {
+                        modalDiv.modal("hide");
+                        refreshList("@Url.Action("_PageList")", "pageList");
+                    }
+                });
+
+            } else {
+                toastr.warning("Alanları Kontrol Ediniz!");
+            }
+        }
+
+    };
+
+    // cancel button action
+    modalDiv.find(".btn-default").on("click", function () { modalDiv.modal("hide") });*@
+
+
+
+</script>

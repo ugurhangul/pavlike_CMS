@@ -1,0 +1,88 @@
+﻿@model PavlikeDATA.Models.Page
+
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { @id = "pageForm", @class = "js-validation-material form-horizontal push-10-t push-10" }))
+{
+
+    @Html.AntiForgeryToken()
+
+    if (Request.RawUrl.ToLower().Contains("edit"))
+    {
+        @Html.HiddenFor(model => model.Active)
+        @Html.HiddenFor(model => model.AuthorId)
+        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.RootPageId)
+
+    }
+
+    @Html.ValidationSummary(true, "", new { @class = "help-block text-right text-danger" })
+
+
+    <div class="form-group">
+        <div class="col-xs-12">
+            <div class="form-material">
+                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control", @placeholder = "Sayfa Adı" } })
+                @Html.LabelFor(model => model.Title)
+                @Html.ValidationMessageFor(m => m.Title, null, new { @class = "help-block text-right help-block text-right text-danger" })
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-xs-12">
+            <div class="form-material">
+                @Html.EditorFor(model => model.Url, new { htmlAttributes = new { @class = "form-control", @placeholder = "Sayfa Adı" } })
+                @Html.LabelFor(model => model.Url)
+                @Html.ValidationMessageFor(m => m.Url, null, new { @class = "help-block text-right text-danger" })
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-xs-12">
+            <div class="form-material">
+                @Html.DropDownListFor(model => model.RootPageId,null,"Seçiniz", new { htmlAttributes = new { @class = "form-control", @placeholder = "Üst Sayfa Adı" } })
+                @Html.LabelFor(model => model.RootPageId)
+                @Html.ValidationMessageFor(m => m.RootPageId, null, new { @class = "help-block text-right text-danger" })
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-xs-12">
+            <div class="form-material">
+                @Html.EditorFor(model => model.PageOrder, new { htmlAttributes = new { @class = "form-control", @placeholder = "Sayfa Sıra Numarası" } })
+                @Html.LabelFor(model => model.PageOrder)
+                @Html.ValidationMessageFor(m => m.PageOrder, null, new { @class = "help-block text-right text-danger" })
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-xs-12">
+            <div class="form-material">
+                @Html.EditorFor(model => model.Published, new { htmlAttributes = new { @class = "form-control", @placeholder = "Yayında mı ?" } })
+                @Html.LabelFor(model => model.Published)
+                @Html.ValidationMessageFor(m => m.Published, null, new { @class = "help-block text-right text-danger" })
+            </div>
+        </div>
+    </div>
+
+
+}
+
+
+<script>
+    $("#Title").on("change", function () {
+        var url = "/" + $("#Title").val().replace(" ", "-");
+
+        if (url === "/") {
+            $("#Url").val("");
+        } else {
+            $("#Url").val(url);
+        }
+    });
+
+</script>

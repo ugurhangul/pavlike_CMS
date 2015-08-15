@@ -1,0 +1,158 @@
+﻿<!DOCTYPE html>
+<!--[if IE 9]><html class="ie9 no-focus"> <![endif]-->
+<!--[if gt IE 9]><!-->
+<html class="no-focus">
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="pavlikeCMS - Asp.Net MVC için açık kaynaklı içerik yönetim sistemi">
+    <meta name="author" content="pavlike">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0">
+    <title>@ViewBag.Title</title>
+
+    <link href="~/Content/magnific-popup.min.css" rel="stylesheet" />
+    <link href="~/Scripts/dropzone/dropzone.min.css" rel="stylesheet" />
+    <link href="~/Content/image-picker.css" rel="stylesheet" />
+    <link href="~/Content/toastr.css" rel="stylesheet" />
+    <link href="~/Content/pavlikeCMS.css" rel="stylesheet" />
+    <link href="~/Content/jquery.tagsinput.min.css" rel="stylesheet"/>
+
+    <script src="~/Scripts/jquery-2.1.4.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.bootstrap.wizard.min.js"></script>
+    <script src="~/Scripts/dropzone/dropzone.min.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Scripts/ckeditor/ckeditor.js"></script>
+    <script src="~/Scripts/magnific-popup.min.js"></script>
+    <script src="~/Scripts/image-picker.js"></script>
+    <script src="~/Scripts/jquery.quick.pagination.min.js"></script>
+    <script src="~/Scripts/toastr.min.js"></script>
+    <script src="~/Scripts/jquery.tagsinput.min.js"></script>
+</head>
+<body>
+    <div id="page-container" class="sidebar-l sidebar-o side-scroll header-navbar-fixed">
+        <nav id="sidebar">
+            <div id="sidebar-scroll">
+                <div class="sidebar-content">
+                    <div class="side-header side-content bg-white-op">
+                        <button class="btn btn-link text-gray pull-right hidden-md hidden-lg" type="button" data-toggle="layout" data-action="sidebar_close">
+                            <i class="fa fa-times"></i>
+                        </button>
+                        <a class="h5 text-white" href="indexAdmin.html">
+                            <span class="h4 font-w600 sidebar-mini-hide text-city">pavlikeCMS</span>
+                        </a>
+                    </div>
+                    <div class="side-content">
+                        <ul class="nav-main">
+                            <li>
+                                <a class="active" href="@Url.Action("Index","Home")"><i class="si si-speedometer"></i><span class="sidebar-mini-hide">Kontrol Paneli</span></a>
+                            </li>
+                            <li class="nav-main-heading"><span class="sidebar-mini-hide">İçerik Yönetimi</span></li>
+                            <li>
+                                <a class="nav-submenu" data-toggle="nav-submenu" href="@Url.Action("Index", "Pages")"><i class="si si-badge"></i><span class="sidebar-mini-hide">Sayfalar</span></a>
+                            </li>
+                            <li>
+                                <a class="nav-submenu" data-toggle="nav-submenu" href="@Url.Action("Index", "Articles")"><i class="si si-grid"></i><span class="sidebar-mini-hide">Makaleler</span></a>
+                            </li>
+                            <li>
+                                <a class="nav-submenu" data-toggle="nav-submenu" href="@Url.Action("Index", "Files")"><i class="si si-note"></i><span class="sidebar-mini-hide">Dosyalar</span></a>
+                            </li>
+                            <li class="nav-main-heading"><span class="sidebar-mini-hide">Ayarlar</span></li>
+                            <li>
+                                <a class="nav-submenu" data-toggle="nav-submenu" href="@Url.Action("Index", "Authors")"><i class="si si-wrench"></i><span class="sidebar-mini-hide">Kullanıcılar</span></a>
+                            </li>
+                            <li>
+                                <a class="nav-submenu" data-toggle="nav-submenu" href="@Url.Action("Index", "Settings")"><i class="si si-magic-wand"></i><span class="sidebar-mini-hide">Site </span></a>
+                            </li>
+                            <li>
+                                <a class="nav-submenu" data-toggle="nav-submenu" href="@Url.Action("Index", "SocialMedia")"><i class="si si-puzzle"></i><span class="sidebar-mini-hide">Sosyal </span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <header id="header-navbar" class="content-mini content-mini-full">
+            <ul class="nav-header pull-right">
+                <li>
+                    @Html.Partial("_LoginPartial")
+
+                </li>
+            </ul>
+            <ul class="nav-header pull-left">
+                <li class="hidden-md hidden-lg">
+                    <button class="btn btn-default" data-toggle="layout" data-action="sidebar_toggle" type="button">
+                        <i class="fa fa-navicon"></i>
+                    </button>
+                </li>
+                <li class="hidden-xs hidden-sm">
+                    <button class="btn btn-default" data-toggle="layout" data-action="sidebar_mini_toggle" type="button">
+                        <i class="fa fa-ellipsis-v"></i>
+                    </button>
+                </li>
+                <li class="visible-xs">
+                    <button class="btn btn-default" data-toggle="class-toggle" data-target=".js-header-search" data-class="header-search-xs-visible" type="button">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </li>
+                <li class="js-header-search header-search">
+                    <form class="form-horizontal" action="base_pages_search.html" method="post">
+                        <div class="form-material form-material-primary input-group remove-margin-t remove-margin-b">
+                            <input class="form-control" type="text" id="base-material-text" name="base-material-text" placeholder="Arama..">
+                            <span class="input-group-addon"><i class="si si-magnifier"></i></span>
+                        </div>
+                    </form>
+                </li>
+            </ul>
+        </header>
+        <main id="main-container">
+            <div class="content bg-image overflow-hidden" style="background-image: url('/Content/AdminPanel/assets/img/photos/img-001.jpg');">
+                <div class="push-50-t push-15">
+                    <h1 class="h2 text-white animated zoomIn">Kontrol Paneli @Html.ViewBag.Title</h1>
+                </div>
+            </div>
+            @Html.Partial("~/Areas/AdminPanel/Views/Shared/_BootstrapModal.cshtml")
+            @RenderBody()
+        </main>
+        <footer id="page-footer" class="content-mini content-mini-full font-s12 bg-gray-lighter clearfix">
+            <div class="pull-right">
+                <a class="font-w600 text-city" href="http://pavlike.sapmazbilisim.com" target="_blank">pavlike</a>
+            </div>
+            <div class="pull-left">
+                <a class="font-w600 text-city" href="javascript:void(0)" target="_blank">pavlikeCMS 1.0</a> &copy; <span class="js-year-copy"></span>
+            </div>
+        </footer>
+        <div id="alertDiv">
+        </div>
+    </div>
+    <script src="~/Scripts/pavlikeLibrary.js"></script>
+    <script>
+        $(function () {
+            if ($("#elementList").length) {
+                var xmlHttp = new XMLHttpRequest();
+                xmlHttp.open("GET", $("#elementList").attr("link"), false);
+                xmlHttp.send(null);
+
+                $("#elementList").html(null);
+                $("#elementList").html(xmlHttp.responseText);
+            }
+
+            var toastrget = new XMLHttpRequest();
+            toastrget.open("GET", "/AdminPanel/home/_toastr?ftimestamp=" + new Date().getTime(), false);
+            toastrget.send(null);
+            $("#alertDiv").html(null);
+            $("#alertDiv").html(toastrget.responseText);
+            jQuery('.js-gallery-advanced').each(function () {
+                jQuery(this).magnificPopup({
+                    delegate: 'a.img-lightbox',
+                    type: 'image',
+                    gallery: {
+                        enabled: true
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

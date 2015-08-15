@@ -1,0 +1,70 @@
+﻿@using Microsoft.AspNet.Identity
+@using pavlikeMVC.Areas.AdminPanel.Models
+@{
+    var authUser = new AuthenticatedAuthor();
+}
+@if (Request.IsAuthenticated)
+{
+
+    @Html.AntiForgeryToken()
+
+
+    <div class="btn-group">
+        <button class="btn btn-default btn-image dropdown-toggle" data-toggle="dropdown" type="button">
+            <img src="@Html.Raw(authUser.Picture)" alt="Avatar">
+
+            @if (authUser.Name != null)
+            {
+                @:Welcome @authUser.Name @authUser.Surname !
+            }
+            else
+            {
+                @:Welcome @User.Identity.GetUserName() !
+            }
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-right">
+            <li class="dropdown-header">Profil</li>
+            <li>
+                <a tabindex="-1" href="@Url.Action("Inbox", "Author")">
+                    <i class="si si-envelope-open pull-right"></i>
+                    <span class="badge badge-primary pull-right">3</span>Gelen Kutusu
+                </a>
+            </li>
+            <li>
+                <a tabindex="-1" href="@Url.Action("Profile", "Author")">
+                    <i class="si si-user pull-right"></i>
+                    <span class="badge badge-success pull-right">1</span>Profil
+                </a>
+            </li>
+            <li>
+                <a tabindex="-1" href="@Url.Action("Index", "Author")">
+                    <i class="si si-settings pull-right"></i>Ayarlar
+                </a>
+            </li>
+            <li class="divider"></li>
+            <li class="dropdown-header">Eylemler</li>
+            <li>
+                <a tabindex="-1" href="@Url.Action("Lock", "Author")">
+                    <i class="si si-lock pull-right"></i>Hesabı Kilitle
+                </a>
+            </li>
+            <li>
+                @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                {
+                    <a tabindex="-1" href="javascript:document.getElementById('logoutForm').submit()">
+                        <i class="si si-logout pull-right"></i>Çıkış Yap
+                    </a>
+                }
+            </li>
+        </ul>
+    </div>
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    </ul>
+}
+

@@ -1,0 +1,99 @@
+﻿@model PavlikeDATA.Models.Slider
+
+@{
+    ViewBag.Title = "Yeni Slider";
+    Layout = "~/Areas/AdminPanel/Views/Shared/_AdminPanelLayout.cshtml";
+}
+
+<div class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="block">
+
+                <div class="block-content">
+
+                    @using (Html.BeginForm(null, null, FormMethod.Post, new { @id = "documentForm", @class = "js-validation-material form-horizontal push-10-t push-10", enctype = "multipart/form-data" }))
+                    {
+
+                        @Html.AntiForgeryToken()
+
+                        if (Request.RawUrl.ToLower().Contains("edit"))
+                        {
+                            @Html.HiddenFor(model => model.Active)
+                            @Html.HiddenFor(model => model.AuthorId)
+                            @Html.HiddenFor(model => model.Id)
+                            @Html.HiddenFor(model => model.FileId)
+
+                        }
+                        else
+                        {
+                            <div class="form-group">
+                                <div class="col-xs-12">
+                                    <div class="form-material">
+
+                                        <div class="fallback">
+                                            <input name="uploadedFile" type="file" multiple="" />
+                                        </div>
+
+
+                                        @Html.LabelFor(model => model.FileId)
+                                        @Html.ValidationMessageFor(m => m.FileId, null, new { @class = "help-block text-right help-block text-right text-danger" })
+
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+
+                        @Html.ValidationSummary(true, "", new { @class = "help-block text-right text-danger" })
+
+
+
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <div class="form-material">
+                                    @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control", @placeholder = "Başlık" } })
+                                    @Html.LabelFor(model => model.Title)
+                                    @Html.ValidationMessageFor(m => m.Title, null, new { @class = "help-block text-right help-block text-right text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <div class="form-material">
+                                    @Html.EditorFor(model => model.SubTitle, new {htmlAttributes = new {@class = "form-control", @placeholder = "Alt Başlık"}})
+                                    @Html.LabelFor(model => model.SubTitle)
+                                    @Html.ValidationMessageFor(m => m.SubTitle, null, new {@class = "help-block text-right text-danger"})
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <div class="form-material">
+                                    @Html.EditorFor(model => model.Detail, new { htmlAttributes = new { @class = "form-control", @placeholder = "Açıklama" } })
+                                    @Html.LabelFor(model => model.Detail)
+                                    @Html.ValidationMessageFor(m => m.Detail, null, new { @class = "help-block text-right text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-2 pull-right">
+                                <div class="col-xs-6 ">
+                                    <div class="form-material">
+                                        <a href="@Url.Action("Slider")" value="Kaydet" class="btn btn-danger">İptal</a>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 ">
+                                    <div class="form-material">
+                                        <input type="submit" value="Kaydet" class="btn btn-primary" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

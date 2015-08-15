@@ -1,0 +1,17 @@
+﻿@using PavlikeDATA.Models;
+@{
+    ViewBag.Title = "About";
+    List<Album> albumler = ViewBag.Albumler as List<Album>;
+}
+<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.Message</h3>
+
+<p>Use this area to provide additional information.</p>
+<ul>
+@foreach (var item in albumler)
+{
+    <li>
+        @item.Title
+    </li>
+}
+</ul>

@@ -1,0 +1,105 @@
+﻿@model PavlikeDATA.Models.Album
+@{
+    ViewBag.Title = Model.Title;
+    Layout = IsAjax ? null : "~/Areas/AdminPanel/Views/Shared/_AdminPanelLayout.cshtml";
+}
+
+<div class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="content content-narrow">
+
+                <!-- END Icon Tiles -->
+                <div class="row">
+                    <div class="row items-push js-gallery-advanced">
+
+                        @foreach (var item in Model.AlbumMediaCollection)
+                        {
+                            <div class="col-sm-6 col-md-4 col-lg-3 animated fadeIn">
+                                <div class="img-container fx-img-rotate-r">
+                                    <img class="img-responsive" style="height: 242px;" src="@Url.Content(new PavlikeDATA.Repos.FileRepository().FindbyId(item.Media.FileId).Url)" alt="@item.Media.AltText">
+                                    <div class="img-options">
+                                        <div class="img-options-content">
+                                            <h3 class="font-w400 text-white push-5">@item.Media.Title</h3>
+                                            <a class="btn btn-sm btn-default img-lightbox" href="@Url.Content(new PavlikeDATA.Repos.FileRepository().FindbyId(item.Media.FileId).Url)">
+                                                <i class="fa fa-search-plus"></i> İncele
+                                            </a>
+                                            <div class="btn-group btn-group-sm">
+                                                <button class="btn btn-default mediaEdit"   album-id="@item.Album.Id" media-id="@item.Media.Id" item-Title="@item.Media.Title"><i class="fa fa-pencil"></i> Düzenle</button>
+                                                <button class="btn btn-default mediaDelete" album-id="@item.Album.Id" media-id="@item.Media.Id" item-Title="@item.Media.Title"><i class="fa fa-times"></i> Sil</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    //Modal Init
+    var modalDiv = $("#bootstrap-Modal");
+    var modalContent = modalDiv.find(".block-content");
+    var modalTitle = modalDiv.find(".block-title");
+    var modalConfirm = modalDiv.find(".btn-primary");
+
+    $(".mediaEdit").on("click", function () {
+        var item = $(this);
+        $.get("@Url.Action("_mediaEdit")", { id: item.attr("media-id") }, function (data) {
+            modalDiv.children().addClass("modal-lg");
+            modalDiv.modal("show");
+            modalContent.html(data);
+            modalTitle.html(item.attr("item-Title") + " - Düzenle");
+            modalConfirm.attr("link", "@Url.Action("_mediaEdit")");
+            modalConfirm.html("Kaydet");
+        });
+    });
+
+    //delete page action
+    $(".mediaDelete").on("click", function () {
+        var item = $(this);
+        modalDiv.modal("show");
+        modalContent.html("Görseli albümden silmek istiyor musunuz ?");
+        modalTitle.html("Görseli Sil - " + item.attr("item-title") + " !");
+        modalConfirm.attr("link", "@Url.Action("_AlbumMediaDelete")" + "?mediaid=" + item.attr("media-id")+"&albumid="+item.attr("album-id"));
+        modalConfirm.html("Sil");
+
+    });
+
+
+    //Confirm button action
+    modalDiv.find(".btn-primary").on("click", function(event) {
+        if (!$('#mediaForm').length) {
+            $.post(modalConfirm.attr("link"), function(data) {
+                if (data === "True") {
+                    modalDiv.modal("hide");
+                     location.reload();
+                }
+            });
+        } else {
+            if ($('#mediaForm').valid()) {
+                $.post(modalConfirm.attr("link"), $("#mediaForm").serializeArray(), function (data) {
+                    if (data === "True") {
+                        modalDiv.modal("hide");
+                      location.reload();
+                    }
+                });
+
+            } else {
+                toastr.warning("Alanları Kontrol Ediniz!");
+            }
+
+
+    }});
+
+    // cancel button action
+    modalDiv.find(".btn-default").on("click", function () { modalDiv.modal("hide") });
+
+
+
+</script>

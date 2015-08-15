@@ -1,0 +1,60 @@
+﻿@model PavlikeDATA.Models.Media
+@{
+    Layout = null;
+}
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="col-lg-6">
+
+            <img src="@Url.Content(Model.File.Url)" style="width: 100%;" alt="@Model.AltText" />
+        </div>
+
+        <div class="col-lg-6">
+            @using (Html.BeginForm(null, null, FormMethod.Post, new { @id = "mediaForm" }))
+            {
+                @Html.AntiForgeryToken()
+
+
+                @Html.HiddenFor(model => model.Id)
+                @Html.HiddenFor(model => model.AuthorId)
+                @Html.HiddenFor(model => model.FileId)
+                @Html.HiddenFor(model => model.Active)
+                @Html.HiddenFor(model => model.CreateDateTime)
+
+                <div class="col-sm-10 ">
+                    <div class="form-material">
+                        @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control", @placeholder = "Başlık Girin." } })
+                        @Html.LabelFor(model => model.Title)
+                    </div>
+                </div>
+
+                <div class="col-sm-10 ">
+                    <div class="form-material">
+                        @Html.EditorFor(model => model.AltText, new { htmlAttributes = new { @class = "form-control", @placeholder = "Alt Metin Girin." } })
+                        @Html.LabelFor(model => model.AltText)
+                    </div>
+                </div>
+                <div class="col-sm-10 ">
+                    <div class="form-material">
+                        @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", @placeholder = "Açıklama Girin." } })
+                        @Html.LabelFor(model => model.Description)
+                    </div>
+                </div>
+                <div class="col-sm-10 ">
+                    <div class="form-material">
+                        @Html.LabelFor(model => model.CreateDateTime)
+                        @Model.CreateDateTime.ToLocalTime()
+                    </div>
+                </div>
+                <div class="col-sm-10 ">
+                    <div class="form-material">
+                        @Html.LabelFor(model => model.AuthorId)
+                        @Model.Author.Name @Model.Author.Surname
+                    </div>
+                </div>
+
+            }
+        </div>
+    </div>
+</div>
