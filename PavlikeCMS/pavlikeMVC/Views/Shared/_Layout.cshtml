@@ -1,47 +1,75 @@
-﻿<!DOCTYPE html>
-<html>
+﻿@{
+    var setting = new PavlikeDATA.Repos.SettingRepository().GetSettings();
+}
+<!DOCTYPE html>
+<html class="no-focus">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
-    @Styles.Render("~/Content/toastr")
+    <meta charset="utf-8">
+    <title>@setting.Title - @ViewBag.Title</title>
+
+    <meta name="description" content="@setting.Title - @setting.Description">
+    <meta name="author" content="@setting.Title">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0">
+    <link href="~/Content/bootstrap-theme.css" rel="stylesheet" />
+    <link href="~/Content/oneui.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400italic,600,700%7COpen+Sans:300,400,400italic,600,700">
 
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+    <div id="page-container" class="header-navbar-fixed header-navbar-transparent">
+
+        <header id="header-navbar" class="content-mini content-mini-full">
+            <div class="content-boxed">
+
+                @Html.Partial("Navigation")
+
+                <ul class="nav-header pull-left">
+                    <li class="header-content">
+                        <a class="h5" href="@setting.Url">
+                            @if (setting.LogoId != null)
+                            {
+                                <img src="@Url.Content(new PavlikeDATA.Repos.MediaRepository().FindbyId(setting.LogoId).File.Url)" alt="@setting.Title" />
+                            }
+                            else
+                            {
+                                <span class="h4 font-w600 text-white">@setting.Title</span>
+                            }
+                        </a>
+                    </li>
                 </ul>
-                @Html.Partial("_LoginPartial")
+
             </div>
-        </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
+        </header>
+        <main id="main-container" style="min-height: 295px;">
+       
+            <div class="bg-white">
+                <section class="content content-boxed">
+
+                    @RenderBody()
+
+                </section>
+            </div>
+      
+        </main>
+        @Html.Partial("Footer")
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/bundles/toastr")
-    @RenderSection("scripts", required: false)
-    @Html.Partial("_Toastr")
+
+    <script src="~/Scripts/jquery-2.1.4.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.slimscroll.min.js"></script>
+    <script src="~/Scripts/jquery.scrollLock.min.js"></script>
+    <script src="~/Scripts/jquery.appear.min.js"></script>
+    <script src="~/Scripts/jquery.countTo.min.js"></script>
+    <script src="~/Scripts/jquery.placeholder.min.js"></script>
+    <script src="~/Scripts/js.cookie.min.js"></script>
+    <script src="~/Scripts/app.js"></script>
+    <script>
+        $(function () {
+            App.initHelpers(['appear', 'appear-countTo']);
+        });
+    </script>
 </body>
 </html>

@@ -1,0 +1,71 @@
+﻿@using PavlikeDATA.Repos
+@{
+    var pages = new PageRepository().GetforPublish();
+}
+
+
+
+<ul class="nav navbar-nav pull-left">
+
+    @foreach (var mp in pages.Where(p => p.RootPageId == null))
+    {
+        if (pages.Count(p => p.RootPageId == mp.Id) > 0)
+        {
+            @:<li class="dropdown">
+                @:   <a id="dLabel" role="button" data-toggle="dropdown"  data-target="#" href="#">
+                    @:       @mp.Title <span class="caret"></span>
+                    @:</a>
+                    @: <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+                    }
+        else
+        {
+            @:<li>
+                @:<a href="@Url.Content("~/" + mp.Url)">@mp.Title</a>
+                }
+
+        @RenderMenuItem(pages, mp)
+
+        if (pages.Count(p => p.RootPageId == mp.Id) > 0)
+        {
+            @:</ul>
+            @:</li>
+        }
+        else
+        {
+            @:</li>
+        }
+
+    }
+</ul>
+
+
+@helper RenderMenuItem(List<PavlikeDATA.Models.Page> menuList, PavlikeDATA.Models.Page mi)
+{
+foreach (var cp in menuList.Where(p => p.RootPageId == mi.Id))
+{
+
+    if (menuList.Count(p => p.RootPageId == cp.Id) > 0)
+    {
+            @:<li class="dropdown-submenu">
+                @:   <a tabindex="-1" href="@Url.Content("~/"+cp.Url)">@cp.Title</a>
+                @:  <ul class="dropdown-menu">
+                    }
+    else
+    {
+            @:<li>
+                @:<a href="@Url.Content("~/" + cp.Url)">@cp.Title</a>
+                }
+
+                @RenderMenuItem(menuList, cp)
+
+                if (menuList.Count(p => p.RootPageId == cp.Id) > 0)
+                {
+                @:</ul>
+        @:</li>
+    }
+    else
+    {
+            @:</li>
+    }
+}
+}

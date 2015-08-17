@@ -1,23 +1,23 @@
 ﻿using System.Web.Mvc;
-using PavlikeDATA.Migrations;
-using PavlikeDATA.Models;
+using PavlikeDATA.Repos;
 
 namespace pavlikeMVC.Controllers
 {
-    [RequireHttps]
+   
+    [RoutePrefix("")]
     public class HomeController : Controller
     {
+        readonly PageRepository _page = new PageRepository();
+        [Route]
         public ActionResult Index()
         {
             return View();
         }
-
-        public ActionResult About()
+        [Route("{url}")]
+        public ActionResult Index(string url)
         {
-
-            ViewBag.Message = "Your application description page.";
        
-            return View();
+            return View("GetPage", _page.FindbyUrl(url));
         }
 
         public ActionResult Contact()

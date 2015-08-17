@@ -13,7 +13,25 @@ namespace PavlikeDATA.Repos
         public List<Page> GetAll()
         {
             return _db.Pages.Where(c => c.Active).Include(c => c.Author).Include(c => c.RootPage).OrderBy(c => c.PageOrder).ToList();
-            }
+        }
+
+        public List<Page> GetforPublish()
+        {
+            var pages =
+                _db.Pages.Where(c => c.Active && c.Published)
+                
+             
+                    .OrderBy(c => c.PageOrder)
+                    .ToList();
+               
+            //var rootedpages = pages.SelectMany(page => page.RootPages).ToList();
+            //if (rootedpages.Count <= 0) return pages;
+            //foreach (var delete in rootedpages)
+            //{
+            //    pages.Remove(delete);
+            //}
+            return pages;
+        }
 
         public Enum.EntityResult Create(Page page)
         {
@@ -28,6 +46,11 @@ namespace PavlikeDATA.Repos
             {
                 return Enum.EntityResult.Failed;
             }
+        }
+
+        public Page FindbyUrl(string url)
+        {
+            return _db.Pages.SingleOrDefault(c => c.Url == url);
         }
 
         public Page FindbyId(int id)
