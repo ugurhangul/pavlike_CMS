@@ -82,7 +82,9 @@
 </div>
 <script>
     $(function() {
-     CKEDITOR.replace( 'Content' );
+        CKEDITOR.replace('Content');
+        CKFinder.setupCKEditor(null, "@Url.Content("~/Content/ckfinder/")");
+ CKEDITOR.config.language = 'tr';
     });
 
 </script>

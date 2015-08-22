@@ -1,13 +1,22 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
+using pavlikeLibrary;
+using PavlikeDATA.Models;
 using PavlikeDATA.Repos;
 
 namespace pavlikeMVC.Controllers
 {
-   
+
     [RoutePrefix("")]
     public class HomeController : Controller
     {
         readonly PageRepository _page = new PageRepository();
+        readonly AlbumRepository _galleries = new AlbumRepository();
+        readonly MediaRepository _medias = new MediaRepository();
+       
+
         [Route]
         public ActionResult Index()
         {
@@ -16,15 +25,28 @@ namespace pavlikeMVC.Controllers
         [Route("{url}")]
         public ActionResult Index(string url)
         {
-       
+            if (url.ToLower() == "galeri")
+            {
+                RedirectToAction("Galeri");
+            }
+            else if(url.ToLower() == "adminpanel")
+            {
+                return RedirectToAction("Login", "Account", new { area = "AdminPanel" });
+            }
             return View("GetPage", _page.FindbyUrl(url));
         }
 
-        public ActionResult Contact()
+        [Route("galeri")]
+        public ActionResult Galeri()
         {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            return View("Galeri", _galleries.GetAll());
+        }
+        [Route("albumdetay/{title}/{id}")]
+        public ActionResult Album(string title,int id)
+        {
+            ViewBag.Title = title;
+           var medias = _galleries.FindbyId(id).AlbumMediaCollection.ToList().Select(item => _medias.FindbyId(item.MediaId)).ToList();
+            return View("Media", medias);
         }
     }
 }

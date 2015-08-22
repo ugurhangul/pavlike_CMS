@@ -7,9 +7,9 @@
 
 <ul class="nav navbar-nav pull-left">
 
-    @foreach (var mp in pages.Where(p => p.RootPageId == null))
+    @foreach (var mp in pages.Where(p => p.RootPage == null))
     {
-        if (pages.Count(p => p.RootPageId == mp.Id) > 0)
+        if (pages.Count(p => p.RootPage == mp.Id) > 0)
         {
             @:<li class="dropdown">
                 @:   <a id="dLabel" role="button" data-toggle="dropdown"  data-target="#" href="#">
@@ -25,7 +25,7 @@
 
         @RenderMenuItem(pages, mp)
 
-        if (pages.Count(p => p.RootPageId == mp.Id) > 0)
+        if (pages.Count(p => p.RootPage == mp.Id) > 0)
         {
             @:</ul>
             @:</li>
@@ -41,10 +41,10 @@
 
 @helper RenderMenuItem(List<PavlikeDATA.Models.Page> menuList, PavlikeDATA.Models.Page mi)
 {
-foreach (var cp in menuList.Where(p => p.RootPageId == mi.Id))
+foreach (var cp in menuList.Where(p => p.RootPage == mi.Id))
 {
 
-    if (menuList.Count(p => p.RootPageId == cp.Id) > 0)
+    if (menuList.Count(p => p.RootPage == cp.Id) > 0)
     {
             @:<li class="dropdown-submenu">
                 @:   <a tabindex="-1" href="@Url.Content("~/"+cp.Url)">@cp.Title</a>
@@ -58,7 +58,7 @@ foreach (var cp in menuList.Where(p => p.RootPageId == mi.Id))
 
                 @RenderMenuItem(menuList, cp)
 
-                if (menuList.Count(p => p.RootPageId == cp.Id) > 0)
+                if (menuList.Count(p => p.RootPage == cp.Id) > 0)
                 {
                 @:</ul>
         @:</li>

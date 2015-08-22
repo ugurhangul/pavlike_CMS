@@ -1,64 +1,15 @@
 ﻿@model PavlikeDATA.Models.Page
 
-<div>
-    <h4>Page</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Author.UserGuid)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Author.UserGuid)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.RootPage.Title)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.RootPage.Title)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Url)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Url)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Published)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Published)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Active)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Active)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PageOrder)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PageOrder)
-        </dd>
-
-    </dl>
-</div>
+@if (Model.ArticleCollection.Count > 0)
+{
+    foreach (var article in Model.ArticleCollection)
+    {
+       <h3>@article.Title</h3>   
+        @Html.Raw(article.Content)
+        <br/>
+    }
+}
+else
+{
+    <h3>Sayfa Yapım Aşamasında</h3>
+}

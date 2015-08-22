@@ -22,14 +22,7 @@ namespace pavlikeMVC.Areas.AdminPanel.Models
         {
             Author = _db.Authors.SingleOrDefault(c => c.UserGuid == _userid);
             if (Author == null) return;
-            try
-            {
-                Picture = Author.Picture.File.Url;
-            }
-            catch (Exception)
-            {
-                Picture = null;
-            }
+            if (Author.Picture != null) Picture = Author.Picture.File.Url;
             Id = Author.Id;
             Name = Author.Name;
             Surname = Author.Surname;

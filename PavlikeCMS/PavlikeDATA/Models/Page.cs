@@ -15,8 +15,7 @@ namespace PavlikeDATA.Models
         [Display(Name = "Kalıcı Bağlantı")]
         public string Url { get; set; }
         [Display(Name = "Üst Sayfa")]
-        public int? RootPageId { get; set; }
-        public virtual Page RootPage { get; set; }
+        public int? RootPage { get; set; }
 
         [Display(Name = "Yazar")]
         public int AuthorId { get; set; }
@@ -24,7 +23,7 @@ namespace PavlikeDATA.Models
 
         [Required]
         [Display(Name = "Yayında")]
-        [DefaultValue(false)]
+        [DefaultValue(true)]
         public bool Published { get; set; }
         [Display(Name = "Aktif")]
         [DefaultValue(true)]

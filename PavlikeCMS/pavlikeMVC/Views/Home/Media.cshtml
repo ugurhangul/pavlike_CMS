@@ -1,0 +1,65 @@
+﻿@model  List<PavlikeDATA.Models.Media>
+<style>
+    .grid {
+        background: #EEE;
+        max-width: 1200px;
+    }
+
+        /* clearfix */
+        .grid:after {
+            content: '';
+            display: block;
+            clear: both;
+        }
+
+    /* ---- grid-item ---- */
+
+    .grid-sizer,
+    .grid-item {
+        width: 20%;
+    }
+
+    .grid-item {
+        float: left;
+        border: 2px solid #ffffff;
+    }
+</style>
+
+
+<div class="block ">
+    <div class="block-header">
+        <h3 class="block-title">@ViewBag.Title</h3>
+    </div>
+    <div class="block-content">
+        <div class="grid">
+            <div class="grid-sizer"></div>
+
+            @foreach (var media in Model)
+            {
+                <div class="grid-item">
+                    <a class="image-fluid" href="@Url.Content(media.File.Url)" title="@media.Title" data-fluidbox>
+                        <img style="width: 100%;" src="@Url.Content(media.File.Url)" title="@media.Title" alt="@media.AltText" />
+                    </a>
+
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    $(document).ready(function () {
+
+        imagesLoaded('.grid', function () {
+            $(".grid").masonry({
+                itemSelector: '.grid-item',
+                columnWidth: '.grid-sizer',
+                percentPosition: true
+            });
+
+        });
+
+    });
+</script>

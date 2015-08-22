@@ -1,0 +1,59 @@
+﻿@using PavlikeDATA.Models
+@model List<Album>
+
+<style>
+    div#masonry {
+        display: -ms-flexbox;
+        -ms-flex-direction: row;
+        -ms-flex-wrap: wrap;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        font-size: 0;
+        justify-content: space-between;
+    }
+
+        div#masonry img {
+            width: 100%;
+            transition: .8s opacity;
+        }
+</style>
+<div class="row">
+    <div class="col-lg-12">
+        <div id="masonry">
+
+            @foreach (var album in Model.Where(album => album.AlbumMediaCollection.Count > 0))
+            {
+                <div class="col-lg-4">
+                    <div class="block">
+
+                        @{
+                            var first = album.AlbumMediaCollection.FirstOrDefault();
+                            var file = new PavlikeDATA.Repos.FileRepository().FindbyId(first.Media.FileId);
+                        }
+                        <a class="image-fluid" href="@Url.Content(file.Url)" title="@first.Media.Title" data-fluidbox>
+                            <img src="@Url.Content(file.Url)" title="@first.Media.Title" alt="@first.Media.AltText" />
+                        </a>
+
+                        <div class="block-content">
+                            <div class="row items-push text-center">
+                                <div class="col-xs-6 border-r">
+                                    <div class="push-5"><i class="si si-camera fa-2x"></i></div>
+                                    <div class="h5 font-w300 text-muted">@album.AlbumMediaCollection.Count Görsel</div>
+                                </div>
+                                <div class="col-xs-6">
+                                    <div class="push-5"><i class="si si-eye fa-2x"></i></div>
+                                    <div class="h5 font-w300 text-muted"><a href="/albumdetay/@album.Title/@album.Id">Tamamını Gör...</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                            }
+
+        </div>
+    </div>
+</div>

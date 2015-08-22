@@ -85,9 +85,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\201508151217119_FirstInstall.cs" />
-    <Compile Include="Migrations\201508151217119_FirstInstall.Designer.cs">
-      <DependentUpon>201508151217119_FirstInstall.cs</DependentUpon>
+    <Compile Include="Migrations\201508181015584_FirstInstall.cs" />
+    <Compile Include="Migrations\201508181015584_FirstInstall.Designer.cs">
+      <DependentUpon>201508181015584_FirstInstall.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201508181021418_as.cs" />
+    <Compile Include="Migrations\201508181021418_as.Designer.cs">
+      <DependentUpon>201508181021418_as.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201508181140378_ass.cs" />
+    <Compile Include="Migrations\201508181140378_ass.Designer.cs">
+      <DependentUpon>201508181140378_ass.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Album.cs" />
@@ -131,8 +139,14 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201508151217119_FirstInstall.resx">
-      <DependentUpon>201508151217119_FirstInstall.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201508181015584_FirstInstall.resx">
+      <DependentUpon>201508181015584_FirstInstall.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201508181021418_as.resx">
+      <DependentUpon>201508181021418_as.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201508181140378_ass.resx">
+      <DependentUpon>201508181140378_ass.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

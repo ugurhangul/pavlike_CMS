@@ -13,18 +13,23 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0">
     <link href="~/Content/bootstrap-theme.css" rel="stylesheet" />
     <link href="~/Content/oneui.css" rel="stylesheet" />
-
+    <link href="~/Content/fluidbox.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-2.1.4.js"></script>
+    <script src="~/Scripts/imagesloaded.pkgd.min.js"></script>
+    <script src="~/Scripts/jquery.fluidbox.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/app.js"></script>
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400italic,600,700%7COpen+Sans:300,400,400italic,600,700">
+    <script src="http://masonry.desandro.com/masonry.pkgd.js"></script>
+
+
 
 </head>
 <body>
-    <div id="page-container" class="header-navbar-fixed header-navbar-transparent">
+    <div id="page-container" class="header-navbar-fixed header-navbar-transparent header-navbar-scroll">
 
         <header id="header-navbar" class="content-mini content-mini-full">
             <div class="content-boxed">
-
-                @Html.Partial("Navigation")
-
                 <ul class="nav-header pull-left">
                     <li class="header-content">
                         <a class="h5" href="@setting.Url">
@@ -34,16 +39,19 @@
                             }
                             else
                             {
-                                <span class="h4 font-w600 text-white">@setting.Title</span>
+                                <span class="h4 font-w600 text-danger-light">@setting.Title</span>
                             }
                         </a>
                     </li>
                 </ul>
+                @Html.Partial("Navigation")
+
+
 
             </div>
         </header>
-        <main id="main-container" style="min-height: 295px;">
-       
+        <main id="main-container">
+
             <div class="bg-white">
                 <section class="content content-boxed">
 
@@ -51,25 +59,28 @@
 
                 </section>
             </div>
-      
+
         </main>
         @Html.Partial("Footer")
     </div>
-
-
-    <script src="~/Scripts/jquery-2.1.4.js"></script>
-    <script src="~/Scripts/bootstrap.min.js"></script>
-    <script src="~/Scripts/jquery.slimscroll.min.js"></script>
-    <script src="~/Scripts/jquery.scrollLock.min.js"></script>
-    <script src="~/Scripts/jquery.appear.min.js"></script>
-    <script src="~/Scripts/jquery.countTo.min.js"></script>
-    <script src="~/Scripts/jquery.placeholder.min.js"></script>
-    <script src="~/Scripts/js.cookie.min.js"></script>
-    <script src="~/Scripts/app.js"></script>
     <script>
         $(function () {
-            App.initHelpers(['appear', 'appear-countTo']);
+            $(".image-fluid ").fluidbox();
+           
         });
+        $(".image-fluid ").on("openstart", function () {
+            if ($(document).height() > $(window).height()) {
+                var scrollTop = ($('html').scrollTop()) ? $('html').scrollTop() : $('body').scrollTop(); // Works for Chrome, Firefox, IE...
+                $('html').addClass('noscroll').css('top', -scrollTop);
+            }
+
+        });
+        $(".image-fluid ").on("closestart", function () {
+            var scrollTop = parseInt($('html').css('top'));
+            $('html').removeClass('noscroll');
+            $('html,body').scrollTop(-scrollTop);
+        });
+
     </script>
 </body>
 </html>

@@ -23,7 +23,7 @@ namespace pavlikeMVC.Areas.AdminPanel.Controllers
         [HttpGet]
         public PartialViewResult _Create()
         {
-            ViewBag.RootPageId = new SelectList(new PageRepository().GetAll(), "Id", "Title");
+            ViewBag.RootPage = new SelectList(new PageRepository().GetAll(), "Id", "Title");
             return PartialView(new Page());
         }
 
@@ -53,7 +53,7 @@ namespace pavlikeMVC.Areas.AdminPanel.Controllers
         public PartialViewResult _Edit(int id)
         {
             var item = new PageRepository().FindbyId(id);
-            ViewBag.RootPageId = new SelectList(new PageRepository().GetAll(), "Id", "Title", item.RootPageId);
+            ViewBag.RootPage = new SelectList(new PageRepository().GetAll(), "Id", "Title", item.RootPage);
             return PartialView("_Create", item);
         }
 

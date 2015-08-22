@@ -1,4 +1,5 @@
-﻿@model IEnumerable<PavlikeDATA.Models.Page>
+﻿@using PavlikeDATA.Repos
+@model IEnumerable<PavlikeDATA.Models.Page>
 
 <table class="table table-striped table-borderless table-header-bg">
     <thead>
@@ -18,7 +19,7 @@
             <tr>
                 <td class="text-center">@Html.DisplayFor(modelItem => item.PageOrder)</td>
                 <td>@Html.DisplayFor(modelItem => item.Title)</td>
-                <td>@Html.DisplayFor(modelItem => item.RootPage.Title)</td>
+                <td>@(item.RootPage == null? "-": new PageRepository().FindbyId(item.RootPage).Title)</td>
                 <td>@Html.DisplayFor(modelItem => item.Author.Name)</td>
 
                 <td class="hidden-xs">

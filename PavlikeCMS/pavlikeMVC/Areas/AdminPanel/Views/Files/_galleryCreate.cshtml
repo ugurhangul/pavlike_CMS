@@ -52,10 +52,10 @@
                             <div class="block">
                                 <ul class="nav nav-tabs" data-toggle="tabs">
                                     <li class="active">
-                                        <a href="#btabs-animated-fade-home">Görsel Yükle</a>
+                                        <a href="#btabs-animated-fade-home" data-toggle="tab">Görsel Yükle</a>
                                     </li>
                                     <li class="">
-                                        <a href="#btabs-animated-fade-profile">Görsel Seç</a>
+                                        <a href="#btabs-animated-fade-profile" data-toggle="tab">Görsel Seç</a>
                                     </li>
 
                                 </ul>
@@ -83,11 +83,7 @@
 
                                     <div class="tab-pane fade" id="btabs-animated-fade-profile">
                                         <h4 class="font-w300 push-15">Görsel Seç</h4>
-
                                         @Html.Action("_mediaList")
-
-
-
                                     </div>
 
                                 </div>
@@ -125,7 +121,7 @@
 </div>
 
 <script type="text/javascript">
-    
+
     jQuery('.js-wizard-simple').bootstrapWizard({
         'tabClass': '',
         'firstSelector': '.wizard-first',
@@ -199,6 +195,7 @@
     //File Upload response from the server
     Dropzone.options.dropzoneForm = {
         acceptedFiles: "image/*",
+        uploadMultiple:false,
         init: function () {
             this.on("success", function (file) {
                 if (this.getUploadingFiles().length === 0 && this.getQueuedFiles().length === 0) {

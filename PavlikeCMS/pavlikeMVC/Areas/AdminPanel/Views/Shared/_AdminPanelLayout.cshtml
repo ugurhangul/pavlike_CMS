@@ -1,6 +1,5 @@
-﻿<!DOCTYPE html>
-<!--[if IE 9]><html class="ie9 no-focus"> <![endif]-->
-<!--[if gt IE 9]><!-->
+﻿@{ var setting = new PavlikeDATA.Repos.SettingRepository().GetSettings();}
+<!DOCTYPE html>
 <html class="no-focus">
 <head>
     <meta charset="utf-8">
@@ -8,7 +7,7 @@
     <meta name="author" content="pavlike">
     <meta name="robots" content="noindex, nofollow">
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0">
-    <title>@ViewBag.Title</title>
+    <title>@setting.Title - @ViewBag.Title </title>
 
     <link href="~/Content/magnific-popup.min.css" rel="stylesheet" />
     <link href="~/Scripts/dropzone/dropzone.min.css" rel="stylesheet" />
@@ -20,15 +19,17 @@
     <script src="~/Scripts/jquery-2.1.4.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
     <script src="~/Scripts/jquery.bootstrap.wizard.min.js"></script>
-    <script src="~/Scripts/dropzone/dropzone.min.js"></script>
+    <script src="~/Scripts/dropzone/dropzone.js"></script>
     <script src="~/Scripts/jquery.validate.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Content/ckfinder/ckfinder.js"></script>
     <script src="~/Scripts/ckeditor/ckeditor.js"></script>
     <script src="~/Scripts/magnific-popup.min.js"></script>
     <script src="~/Scripts/image-picker.js"></script>
     <script src="~/Scripts/jquery.quick.pagination.min.js"></script>
     <script src="~/Scripts/toastr.min.js"></script>
     <script src="~/Scripts/jquery.tagsinput.min.js"></script>
+    <script src="~/Scripts/masonry.pkgd.min.js"></script>
 </head>
 <body>
     <div id="page-container" class="sidebar-l sidebar-o side-scroll header-navbar-fixed">
@@ -39,8 +40,8 @@
                         <button class="btn btn-link text-gray pull-right hidden-md hidden-lg" type="button" data-toggle="layout" data-action="sidebar_close">
                             <i class="fa fa-times"></i>
                         </button>
-                        <a class="h5 text-white" href="indexAdmin.html">
-                            <span class="h4 font-w600 sidebar-mini-hide text-city">pavlikeCMS</span>
+                        <a class="h5 text-white" href="#">
+                            <span class="h4 font-w600 sidebar-mini-hide text-city">@setting.Title</span>
                         </a>
                     </div>
                     <div class="side-content">
@@ -107,9 +108,9 @@
             </ul>
         </header>
         <main id="main-container">
-            <div class="content bg-image overflow-hidden" style="background-image: url('/Content/AdminPanel/assets/img/photos/img-001.jpg');">
+            <div class="content bg-image overflow-hidden" style="background-image: url('/Content/img/photos/img-001.jpg');">
                 <div class="push-50-t push-15">
-                    <h1 class="h2 text-white animated zoomIn">Kontrol Paneli @Html.ViewBag.Title</h1>
+                    <h1 class="h2 text-white animated zoomIn">Kontrol Paneli - @Html.ViewBag.Title</h1>
                 </div>
             </div>
             @Html.Partial("~/Areas/AdminPanel/Views/Shared/_BootstrapModal.cshtml")

@@ -2,9 +2,9 @@
 
 @{
     ViewBag.Title = "Görseller";
-    Layout = IsAjax ? null : "~/Areas/AdminPanel/Views/Shared/_AdminPanelLayout.cshtml";
+    Layout = !Request.RawUrl.ToLower().Contains("_medialist") ? null : "~/Areas/AdminPanel/Views/Shared/_AdminPanelLayout.cshtml";
 }
-@if (IsAjax)
+@if (!Request.RawUrl.ToLower().Contains("_medialist"))
 {
     <div class="row">
 

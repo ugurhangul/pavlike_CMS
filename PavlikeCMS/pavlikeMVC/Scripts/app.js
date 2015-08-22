@@ -54,7 +54,7 @@ var App = function() {
         });
 
         // Init form placeholder (for IE9)
-        jQuery('.form-control').placeholder();
+        //jQuery('.form-control').placeholder();
     };
 
     // Layout functionality
@@ -136,8 +136,8 @@ var App = function() {
             // If screen width is greater than 991 pixels and .side-scroll is added to #page-container
             if ($windowW > 991 && $lPage.hasClass('side-scroll')) {
                 // Turn scroll lock off (sidebar and side overlay - slimScroll will take care of it)
-                jQuery($lSidebar).scrollLock('off');
-                jQuery($lSideOverlay).scrollLock('off');
+                //jQuery($lSidebar).scrollLock('off');
+                //jQuery($lSideOverlay).scrollLock('off');
 
                 // If sidebar scrolling does not exist init it..
                 if ($lSidebarScroll.length && (!$lSidebarScroll.parent('.slimScrollDiv').length)) {
@@ -178,8 +178,8 @@ var App = function() {
                 }
             } else {
                 // Turn scroll lock on (sidebar and side overlay)
-                jQuery($lSidebar).scrollLock();
-                jQuery($lSideOverlay).scrollLock();
+                //jQuery($lSidebar).scrollLock();
+                //jQuery($lSideOverlay).scrollLock();
 
                 // If sidebar scrolling exists destroy it..
                 if ($lSidebarScroll.length && $lSidebarScroll.parent('.slimScrollDiv').length) {

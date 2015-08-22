@@ -14,7 +14,7 @@
         @Html.HiddenFor(model => model.Active)
         @Html.HiddenFor(model => model.AuthorId)
         @Html.HiddenFor(model => model.Id)
-        @Html.HiddenFor(model => model.RootPageId)
+        @Html.HiddenFor(model => model.RootPage)
 
     }
 
@@ -48,9 +48,9 @@
     <div class="form-group">
         <div class="col-xs-12">
             <div class="form-material">
-                @Html.DropDownListFor(model => model.RootPageId, null, "Seçiniz", new { htmlAttributes = new { @class = "form-control", @placeholder = "Üst Sayfa Adı" } })
-                @Html.LabelFor(model => model.RootPageId)
-                @Html.ValidationMessageFor(m => m.RootPageId, null, new { @class = "help-block text-right text-danger" })
+                @Html.DropDownListFor(model => model.RootPage, null, "Seçiniz", new { @class = "form-control", @placeholder = "Üst Sayfa Adı",@value="0" } )
+                @Html.LabelFor(model => model.RootPage)
+                @Html.ValidationMessageFor(m => m.RootPage, null, new { @class = "help-block text-right text-danger" })
             </div>
         </div>
     </div>
