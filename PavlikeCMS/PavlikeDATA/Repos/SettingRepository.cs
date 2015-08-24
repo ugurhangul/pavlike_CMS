@@ -10,9 +10,23 @@ namespace PavlikeDATA.Repos
     {
         private readonly Context _db = new Context();
 
+        public class GoogleMapSetting
+        {
+            public bool Active { get; set; }
+            public string Content { get; set; }
+            public int Latitude { get; set; }
+            public int Longitude { get; set; }
+        }
+
         public Settings GetSettings()
         {
             return _db.Settings.FirstOrDefault();
+        }
+
+        public GoogleMapSetting GoogleMapSettings()
+        {
+            var result = (from x in _db.Settings select new GoogleMapSetting { Active = x.GoogleMap,Content = x.GoogleMapContent,Latitude = x.GoogleMaplat,Longitude = x.GoogleMaplng}).FirstOrDefault();
+            return result;
         }
 
         public Enum.EntityResult Update(Settings modified)

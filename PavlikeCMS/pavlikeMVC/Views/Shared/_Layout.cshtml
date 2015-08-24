@@ -21,6 +21,7 @@
     <script src="~/Scripts/app.js"></script>
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400italic,600,700%7COpen+Sans:300,400,400italic,600,700">
     <script src="http://masonry.desandro.com/masonry.pkgd.js"></script>
+    <script src="~/Scripts/gmaps.min.js"></script>
 
 
 
@@ -32,7 +33,7 @@
             <div class="content-boxed">
                 <ul class="nav-header pull-left">
                     <li class="header-content">
-                        <a class="h5" href="@setting.Url">
+                        <a class="h5" href="@Url.Content(setting.Url)">
                             @if (setting.LogoId != null)
                             {
                                 <img src="@Url.Content(new PavlikeDATA.Repos.MediaRepository().FindbyId(setting.LogoId).File.Url)" alt="@setting.Title" />

@@ -15,38 +15,46 @@ namespace pavlikeMVC.Controllers
         readonly PageRepository _page = new PageRepository();
         readonly AlbumRepository _galleries = new AlbumRepository();
         readonly MediaRepository _medias = new MediaRepository();
-       
 
         [Route]
         public ActionResult Index()
         {
-            return View();
+            return View("Homepage");
         }
         [Route("{url}")]
         public ActionResult Index(string url)
         {
-            if (url.ToLower() == "galeri")
+            switch (url.ToLower())
             {
-                RedirectToAction("Galeri");
+                case "adminpanel":
+                case "admin":
+                case "panel":
+                    return RedirectToAction("Login", "Account", new { area = "AdminPanel" });
             }
-            else if(url.ToLower() == "adminpanel")
+            var page = _page.FindbyUrl(url);
+            if (page != null)
             {
-                return RedirectToAction("Login", "Account", new { area = "AdminPanel" });
+            return View(page.View.ViewFileName, page);
             }
-            return View("GetPage", _page.FindbyUrl(url));
+            else
+            {
+                return HttpNotFound("Sayfa Bulunamadı");
+            }
         }
 
         [Route("galeri")]
         public ActionResult Galeri()
         {
-            return View("Galeri", _galleries.GetAll());
+            return View("Gallery", _galleries.GetAll());
         }
         [Route("albumdetay/{title}/{id}")]
-        public ActionResult Album(string title,int id)
+        public ActionResult Album(string title, int id)
         {
             ViewBag.Title = title;
-           var medias = _galleries.FindbyId(id).AlbumMediaCollection.ToList().Select(item => _medias.FindbyId(item.MediaId)).ToList();
+            var medias = _galleries.FindbyId(id).AlbumMediaCollection.ToList().Select(item => _medias.FindbyId(item.MediaId)).ToList();
             return View("Media", medias);
         }
+
+
     }
 }

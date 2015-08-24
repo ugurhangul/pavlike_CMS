@@ -1,4 +1,5 @@
 ﻿
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace PavlikeDATA.Models
@@ -36,6 +37,18 @@ namespace PavlikeDATA.Models
         public int? SliderHeight { get; set; }
         [Display(Name = "Görsel Genişliği")]
         public int? SliderWidht { get; set; }
+        [DefaultValue(false)]
+        [Display(Name = "İletişim Formu ?")]
+        public bool ContactForm { get; set; }
+        [Display(Name = "Google Map")]
+        [DefaultValue(false)]
+        public bool GoogleMap { get; set; }
+        [Display(Name = "Google Map Enlem")]
+        public int GoogleMaplat { get; set; }
+        [Display(Name = "Google Map Boylam")]
+        public int GoogleMaplng { get; set; }
+        [Display(Name = "İşaretiçi İçeriği")]
+        public string GoogleMapContent { get; set; }
 
     }
 }

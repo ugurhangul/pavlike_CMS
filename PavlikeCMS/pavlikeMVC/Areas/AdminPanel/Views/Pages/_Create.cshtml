@@ -54,7 +54,15 @@
             </div>
         </div>
     </div>
-
+    <div class="form-group">
+        <div class="col-xs-12">
+            <div class="form-material">
+                @Html.DropDownListFor(model => model.ViewId, new SelectList(new ThemeOptionsRepository().GetViews(),"Id","ViewName",Model.ViewId),  new { @class = "form-control", @placeholder = "Sayfa Taslağı"})
+                @Html.LabelFor(model => model.RootPage)
+                @Html.ValidationMessageFor(m => m.RootPage, null, new { @class = "help-block text-right text-danger" })
+            </div>
+        </div>
+    </div>
     <div class="form-group">
         <div class="col-xs-12">
             <div class="form-material">

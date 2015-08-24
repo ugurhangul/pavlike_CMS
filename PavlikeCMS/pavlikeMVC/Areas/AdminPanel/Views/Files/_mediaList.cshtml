@@ -2,9 +2,9 @@
 
 @{
     ViewBag.Title = "Görseller";
-    Layout = !Request.RawUrl.ToLower().Contains("_medialist") ? null : "~/Areas/AdminPanel/Views/Shared/_AdminPanelLayout.cshtml";
+    Layout = !Request.RawUrl.ToLower().Contains("_medialist") || IsAjax ? null : "~/Areas/AdminPanel/Views/Shared/_AdminPanelLayout.cshtml";
 }
-@if (!Request.RawUrl.ToLower().Contains("_medialist"))
+@if (IsAjax || !Request.RawUrl.ToLower().Contains("_medialist"))
 {
     <div class="row">
 
@@ -18,8 +18,18 @@
     </div>
     <script>
         $(function () {
-            $("select").imagepicker();
-            $(".image_picker_selector").quickPagination({ pageSize: "9" });
+            @if (IsAjax)
+           {
+   @:  jQuery("select.image-picker").imagepicker({ limit: 1 });
+               @:$(".image_picker_selector").quickPagination({ pageSize: "6" });
+                       }
+           else
+           {
+       @:$("select").imagepicker();
+   @:$(".image_picker_selector").quickPagination({ pageSize: "9" });
+           }
+
+ 
         })
 
     </script>

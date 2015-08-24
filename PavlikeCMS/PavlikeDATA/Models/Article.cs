@@ -30,6 +30,9 @@ namespace PavlikeDATA.Models
 
         [DefaultValue(true)]
         public bool Active { get; set; }
+        [Display(Name = "Öne Çıkarılan Fotoğraf")]
+        public int? MediaId { get; set; }
+        public virtual Media Media { get; set; }
 
     }
 }

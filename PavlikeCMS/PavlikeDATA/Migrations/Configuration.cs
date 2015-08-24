@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 using Microsoft.AspNet.Identity;
 using PavlikeDATA.Models;
@@ -50,9 +51,19 @@ namespace PavlikeDATA.Migrations
                 MailServerSsl = false,
                 SliderHeight = 900,
                 SliderWidht = 1440
-
             });
-
+            var views = new List<View>
+            {
+                new View {ViewFileName = "Standard", ViewName = "Genel"},
+                new View {ViewFileName = "Media", ViewName = "Galeri Detay"},
+                new View {ViewFileName = "Homepage", ViewName = "Ana Sayfa"},
+                new View {ViewFileName = "Gallery", ViewName = "Galeri Listesi"},
+                new View {ViewFileName = "Contact", ViewName = "İletişim"}
+            };
+            foreach (var view in views)
+            {
+                context.Views.AddOrUpdate(c => c.ViewFileName, view);
+            }
             context.SaveChanges();
             base.Seed(context);
         }

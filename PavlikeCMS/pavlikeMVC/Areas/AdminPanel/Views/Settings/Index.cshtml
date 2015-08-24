@@ -4,14 +4,14 @@
     ViewBag.Title = "Ayarlar";
     Layout = "~/Areas/AdminPanel/Views/Shared/_AdminPanelLayout.cshtml";
 }
-@using (Html.BeginForm("Index", "Settings", FormMethod.Post, new { enctype = "multipart/form-data", @class = "js-validation-material form-horizontal push-10-t push-10" }))
+@using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data", @class = "js-validation-material form-horizontal push-10-t push-10" }))
 {
 
     @Html.AntiForgeryToken()
     @Html.HiddenFor(model => model.Id)
+
     <div class="content">
         <div class="row">
-
             <div class="col-sm-12 col-lg-6">
                 <div class="block block-themed">
                     <div class="block-header bg-primary">
@@ -27,12 +27,12 @@
                         <div class="form-group">
                             <div class="col-sm-9">
                                 <div class="form-material form-material-primary">
-                                    <img style="width: 40%;margin-bottom:1%"  src="@Url.Content(new PavlikeDATA.Repos.FileRepository().FindbyId(Model.Logo.FileId).Url)" />
-                                    
-                                    @Html.HiddenFor(model => model.LogoId, new {htmlAttributes = new {@class = "form-control", @placeholder = "Sayfa Adı"}})
-                                    <input type="file" id="logoFile" name="logoFile"/>
+                                    <img style="width: 40%;margin-bottom:1%" src="@((Model.LogoId != null)? Url.Content( new PavlikeDATA.Repos.FileRepository().FindbyId(Model.Logo.FileId).Url):"")" />
+
+                                    @Html.HiddenFor(model => model.LogoId, new { htmlAttributes = new { @class = "form-control", @placeholder = "Sayfa Adı" } })
+                                    <input type="file" id="logoFile" name="logoFile" />
                                     @Html.LabelFor(model => model.LogoId)
-                                    @Html.ValidationMessageFor(m => m.LogoId, null, new {@class = "help-block text-right help-block text-right text-danger"})
+                                    @Html.ValidationMessageFor(model => model.LogoId, null, new { @class = "help-block text-right help-block text-right text-danger" })
                                 </div>
                             </div>
                         </div>
@@ -208,17 +208,102 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-12 col-lg-6 pull-right">
+
+            <div class="col-sm-12 col-lg-6 pull-left">
                 <div class="block block-themed">
+                    <div class="block-header bg-primary">
+                        <ul class="block-options">
+                            <li>
+                                <button type="button"><i class="si si-settings"></i></button>
+                            </li>
+                        </ul>
+                        <h3 class="block-title">İletişim Sayfası Ayarları</h3>
+                    </div>
+                    <div class="block-content">
+                        
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                <div class="form-material form-material-primary">
+                                    @Html.CheckBoxFor(model => model.ContactForm, new { htmlAttributes = new { @class = "form-control", @placeholder = "900" } })
+                                    @Html.LabelFor(model => model.ContactForm)
+                                    @Html.ValidationMessageFor(m => m.ContactForm, null, new { @class = "help-block text-right help-block text-right text-danger" })
+                                </div>
+                            </div>
+                        </div>
 
-                    <div class="form-group">
-                        <div class="col-xs-12">
-                            <div class="form-material">
 
-                                <div class="col-lg-2">
-                                    <div class="form-material">
-                                        <input type="submit" value="Kaydet" class="btn btn-primary" />
-                                    </div>
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                <div class="form-material form-material-primary">
+                                    @Html.CheckBoxFor(model => model.GoogleMap)
+                                    @Html.LabelFor(model => model.GoogleMap)
+                                    @Html.ValidationMessageFor(m => m.GoogleMap, null, new { @class = "help-block text-right help-block text-right text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-12 col-lg-6 pull-left googleMap">
+                <div class="block block-themed">
+                    <div class="block-header bg-primary">
+                        <ul class="block-options">
+                            <li>
+                                <button type="button"><i class="si si-settings"></i></button>
+                            </li>
+                        </ul>
+                        <h3 class="block-title">Google Map Ayarları</h3>
+                    </div>
+                    <div class="block-content">
+
+                        <div class="form-group iletisimSayfa">
+                            <div class="col-sm-9">
+                                <div class="form-material form-material-primary">
+                                    @Html.TextBoxFor(model => model.GoogleMapContent, new { @class = "form-control", @placeholder = "Popup İçerik" })
+                                    @Html.LabelFor(model => model.GoogleMapContent)
+                                    @Html.ValidationMessageFor(m => m.GoogleMapContent, null, new { @class = "help-block text-right help-block text-right text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                <div class="form-material form-material-primary">
+                                    @Html.TextBoxFor(model => model.GoogleMaplat, new { @class = "form-control", @placeholder = "12345" })
+                                    @Html.LabelFor(model => model.GoogleMaplat)
+                                    @Html.ValidationMessageFor(m => m.GoogleMaplat, null, new { @class = "help-block text-right help-block text-right text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                <div class="form-material form-material-primary">
+                                    @Html.TextBoxFor(model => model.GoogleMaplng, new { @class = "form-control", @placeholder = "12345" })
+                                    @Html.LabelFor(model => model.GoogleMaplng)
+                                    @Html.ValidationMessageFor(m => m.GoogleMaplng, null, new { @class = "help-block text-right help-block text-right text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-sm-12 col-lg-6 pull-right">
+            <div class="block block-themed">
+
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <div class="form-material">
+
+                            <div class="col-lg-2">
+                                <div class="form-material">
+                                    <input type="submit" value="Kaydet" class="btn btn-primary" />
                                 </div>
                             </div>
                         </div>
@@ -234,5 +319,15 @@
         defaultText: 'Ekle',
         removeWithBackspace: true,
         delimiter: [',']
+    });
+
+    $("#GoogleMap").on("click", function () {
+        var chk = $(this);
+
+        if (chk.is(":checked")) {
+            $(".googleMap").removeClass("hidden");
+        } else {
+            $(".googleMap").addClass("hidden");
+        }
     });
 </script>

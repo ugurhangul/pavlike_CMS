@@ -12,7 +12,7 @@ namespace PavlikeDATA.Repos
         readonly Context _db = new Context();
         public List<Article> GetAll()
         {
-            return _db.Articles.Where(c => c.Active).OrderBy(c => c.Title).Include(c => c.Author).Include(c => c.ArticleType).Include(c => c.Page).ToList();
+            return _db.Articles.Where(c => c.Active).OrderBy(c => c.Title).Include(c => c.Media).Include(c => c.Author).Include(c => c.ArticleType).Include(c => c.Page).ToList();
         }
 
         public List<ArticleType> Types()

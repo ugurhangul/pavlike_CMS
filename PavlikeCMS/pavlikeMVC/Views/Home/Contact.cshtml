@@ -1,17 +1,96 @@
-﻿@{
-    ViewBag.Title = "Contact";
+﻿@model PavlikeDATA.Models.Page
+@{
+    var setting = new PavlikeDATA.Repos.SettingRepository().GetSettings();
+    var map = new PavlikeDATA.Repos.SettingRepository().GoogleMapSettings();
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
+@if (Model.ArticleCollection.Count > 0)
+{
+    foreach (var article in Model.ArticleCollection)
+    {
+        <h3>@article.Title</h3>
+        @Html.Raw(article.Content)
+        <br />
+    }
+}
 
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
 
-<address>
-    <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
+
+@if (setting.ContactForm)
+{
+    <form class="form-horizontal" action="frontend_contact.html" method="post">
+        <div class="form-group">
+            <div class="col-xs-6">
+                <div class="form-material form-material-primary">
+                    <input class="form-control" type="text" id="frontend-contact-firstname" name="frontend-contact-firstname" placeholder="Enter your firstname..">
+                    <label for="frontend-contact-firstname">Firstname</label>
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <div class="form-material form-material-primary">
+                    <input class="form-control" type="text" id="frontend-contact-lastname" name="frontend-contact-lastname" placeholder="Enter your lastname..">
+                    <label for="frontend-contact-lastname">Lastname</label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-xs-12">
+                <div class="form-material form-material-primary">
+                    <input class="form-control" type="email" id="frontend-contact-email" name="frontend-contact-email" placeholder="Enter your email..">
+                    <label for="frontend-contact-email">Email</label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-xs-12">
+                <div class="form-material form-material-primary">
+                    <select class="form-control" id="frontend-contact-subject" name="frontend-contact-subject" size="1">
+                        <option value="1">Support</option>
+                        <option value="2">Billing</option>
+                        <option value="3">Management</option>
+                        <option value="4">Feature Request</option>
+                    </select>
+                    <label for="frontend-contact-subject">Where?</label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-xs-12">
+                <div class="form-material form-material-primary">
+                    <textarea class="form-control" id="frontend-contact-msg" name="frontend-contact-msg" rows="7" placeholder="Enter your message.."></textarea>
+                    <label for="frontend-contact-msg">Message</label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+                <button class="btn btn-block btn-primary" type="submit"><i class="fa fa-send pull-left"></i> Send Message</button>
+            </div>
+        </div>
+    </form>
+}
+
+@if (map.Active)
+{
+    <div class="bg-white" id="js-map-contact" style="height: 350px;">
+
+    </div>
+        <script>
+
+            new GMaps({
+                div: '#js-map-contact',
+                lat: @map.Latitude,
+                lng: @map.Longitude,
+                zoom: 15,
+                disableDefaultUI: true,
+                scrollwheel: true
+            }).addMarkers([
+                {lat: @map.Latitude, lng: @map.Longitude, title: '@setting.Title', animation: google.maps.Animation.DROP, infoWindow: {content: '<strong>@map.Content</strong>'}}
+            ]);
+
+
+        </script>
+}
+
+
+
+

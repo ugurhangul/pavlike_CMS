@@ -8,12 +8,15 @@ $(document).ajaxStop(function () {
     $("#alertDiv").html(null);
     $("#alertDiv").html(toastrget.responseText);
 
-    var listget = new XMLHttpRequest();
-    var url = $("#elementList").attr("link") +"?ftimestamp=" + new Date().getTime();
-    listget.open("GET", url, false);
-    listget.send(null);
-    $("#elementList").html(null);
-    $("#elementList").html(listget.responseText);
+    if ($("#elementList").length) {
+        var listget = new XMLHttpRequest();
+        var url = $("#elementList").attr("link") + "?ftimestamp=" + new Date().getTime();
+        listget.open("GET", url, false);
+        listget.send(null);
+        $("#elementList").html(null);
+        $("#elementList").html(listget.responseText);
+    }
+
 });
 
 
@@ -46,19 +49,6 @@ function ActionElement(event) {
     });
 
 };
-
-
-////delete  action
-//$(".deleteButton").on("click", function () {
-//    var item = $(this);
-//    modalDiv.modal("show");
-//    modalContent.html("Belgeyi silmek istediğinize emin misiniz ?");
-//    modalTitle.html("Belgeyi Sil - " + item.attr("item-title") + " !");
-//    modalConfirm.attr("link", "/AdminPanel/Files/_documentDelete" + "?id=" + item.attr("item-id"));
-//    modalConfirm.html("Sil");
-//    });
-
-
 
 //Confirm button action
 function Confirm(event) {

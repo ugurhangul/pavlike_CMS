@@ -57,6 +57,10 @@ namespace pavlikeMVC.Areas.AdminPanel.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+            if (Request.IsAuthenticated)
+            {
+                    return RedirectToLocal(returnUrl);
+                }
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }

@@ -16,9 +16,9 @@ using System.Runtime.InteropServices;
 using System.Web.UI;
 using System.Security;
 
-[assembly: TagPrefix( "CKFinder", "CKFinder" )]
+[assembly: TagPrefix("CKFinder", "CKFinder")]
 
-[assembly: System.CLSCompliant( true )]
+[assembly: System.CLSCompliant(true)]
 
 [assembly: AllowPartiallyTrustedCallers]
 
@@ -27,14 +27,14 @@ using System.Security;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 //
-[assembly: AssemblyTitle( "CKFinder for ASP.NET" )]
-[assembly: AssemblyDescription( "" )]
-[assembly: AssemblyConfiguration( "" )]
+[assembly: AssemblyTitle("CKFinder for ASP.NET")]
+[assembly: AssemblyDescription("")]
+[assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("CKSource - Frederico Knabben")]
-[assembly: AssemblyProduct( "CKFinder for ASP.NET" )]
+[assembly: AssemblyProduct("CKFinder for ASP.NET")]
 [assembly: AssemblyCopyright("Copyright 2007-2015, CKSource - Frederico Knabben")]
-[assembly: AssemblyTrademark( "" )]
-[assembly: AssemblyCulture( "" )]
+[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCulture("")]
 
 //
 // Version information for an assembly consists of the following four values:
@@ -74,7 +74,7 @@ using System.Security;
 //   (*) Delay Signing is an advanced option - see the Microsoft .NET Framework
 //       documentation for more information on this.
 //
-[assembly: AssemblyDelaySign( false )]
-[assembly: AssemblyKeyFile( "..\\..\\CKFinderKey.snk" )]
-[assembly: AssemblyKeyName( "" )]
-[assembly: ComVisibleAttribute( false )]
+[assembly: AssemblyDelaySign(false)]
+[assembly: AssemblyKeyFile("..\\..\\CKFinderKey.snk")]
+[assembly: AssemblyKeyName("")]
+[assembly: ComVisibleAttribute(false)]

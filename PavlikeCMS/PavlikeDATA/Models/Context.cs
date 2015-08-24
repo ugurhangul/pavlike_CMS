@@ -11,15 +11,13 @@ namespace PavlikeDATA.Models
     {
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
-            // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
-            // Add custom user claims here
             return userIdentity;
         }
     }
     public class Context : IdentityDbContext<ApplicationUser>
     {
-     
+
         public Context()
                 : base("pavlikeCMS_DBModel")
         {
@@ -51,9 +49,7 @@ namespace PavlikeDATA.Models
         public virtual DbSet<Settings> Settings { get; set; }
         public virtual DbSet<Slider> Sliders { get; set; }
         public virtual DbSet<Social> Socials { get; set; }
-        //public virtual DbSet<MailSettings> MailSettings { get; set; }
-        public virtual DbSet<EntityLog> EntityLogs { get; set; }
-
+        public virtual DbSet<View> Views { get; set; }
         #endregion
     }
 
