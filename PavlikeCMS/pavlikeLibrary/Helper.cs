@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
+using System.Web;
+
 
 namespace pavlikeLibrary
 {
-    public static class Helper
+    public class Helper : Controller
     {
         public static string CharacterCorrection(string text)
         {

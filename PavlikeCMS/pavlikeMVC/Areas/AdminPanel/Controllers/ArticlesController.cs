@@ -1,8 +1,13 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.IO;
+using System.Web;
+using System.Web.Mvc;
 using pavlikeLibrary;
 using pavlikeMVC.Areas.AdminPanel.Models;
 using PavlikeDATA.Models;
 using PavlikeDATA.Repos;
+using Enum = pavlikeLibrary.Enum;
+using File = PavlikeDATA.Models.File;
 
 namespace pavlikeMVC.Areas.AdminPanel.Controllers
 {
@@ -30,7 +35,7 @@ namespace pavlikeMVC.Areas.AdminPanel.Controllers
 
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult _Create(Article model)
+        public ActionResult _Create(Article model,HttpPostedFileBase photo)
         {
             if (!ModelState.IsValid)
             {
@@ -39,6 +44,45 @@ namespace pavlikeMVC.Areas.AdminPanel.Controllers
                 ViewBag.PageId = new SelectList(new PageRepository().GetAll(), "Id", "Title", model.PageId);
                 return View(model);
             }
+
+            if (photo?.ContentLength > 0)
+            {
+                var photofile = FileSave(photo, "Media", Enum.FileType.Media);
+                if (photofile != null)
+                {
+                    var media = new Media
+                    {
+                        FileId = photofile.Id,
+                        Active = true,
+                        AuthorId = new AuthenticatedAuthor().Id,
+                        CreateDateTime = DateTime.Now,
+                        AltText = model.Title,
+                        Description = model.Title,
+                        Title = model.Title
+                    };
+                    if (new MediaRepository().Create(media) == Enum.EntityResult.Success)
+                    {
+                        this.AddToastMessage("", "Logo yüklendi", Enum.ToastrType.Success);
+                        model.MediaId = media.Id;
+                    }
+                    else
+                    {
+                        FileDelete(photofile);
+                        this.AddToastMessage("", "Logo yüklenirken hata", Enum.ToastrType.Error);
+                        this.AddToastMessage("", "Sayfayı yenileyin ve tekrar deneyin.");
+                    }
+
+                }
+                else
+                {
+                    this.AddToastMessage("", "Logo yüklenirken hata", Enum.ToastrType.Error);
+                    this.AddToastMessage("", "Sayfayı yenileyin ve tekrar deneyin.");
+                }
+            }
+
+
+
+
             model.AuthorId = new AuthenticatedAuthor().Id;
             var res = new ArticleRepository().Create(model);
             if (res == Enum.EntityResult.Failed)
@@ -65,13 +109,51 @@ namespace pavlikeMVC.Areas.AdminPanel.Controllers
 
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult _Edit(Article modified)
+        public ActionResult _Edit(Article modified,HttpPostedFileBase photo)
         {
             if (!ModelState.IsValid)
             {
                 this.AddToastMessage("", "Alanları kontrol Ediniz", Enum.ToastrType.Warning);
                 return View("_Create", modified);
             }
+
+            if (photo?.ContentLength > 0)
+            {
+                var photofile = FileSave(photo, "Media", Enum.FileType.Media);
+                if (photofile != null)
+                {
+                    var media = new Media
+                    {
+                        FileId = photofile.Id,
+                        Active = true,
+                        AuthorId = new AuthenticatedAuthor().Id,
+                        CreateDateTime = DateTime.Now,
+                        AltText = modified.Title,
+                        Description = modified.Title,
+                        Title = modified.Title
+                    };
+                    if (new MediaRepository().Create(media) == Enum.EntityResult.Success)
+                    {
+                        this.AddToastMessage("", "Logo yüklendi", Enum.ToastrType.Success);
+                        modified.MediaId = media.Id;
+                    }
+                    else
+                    {
+                        FileDelete(photofile);
+                        this.AddToastMessage("", "Logo yüklenirken hata", Enum.ToastrType.Error);
+                        this.AddToastMessage("", "Sayfayı yenileyin ve tekrar deneyin.");
+                    }
+
+                }
+                else
+                {
+                    this.AddToastMessage("", "Logo yüklenirken hata", Enum.ToastrType.Error);
+                    this.AddToastMessage("", "Sayfayı yenileyin ve tekrar deneyin.");
+                }
+            }
+
+
+
             var res = new ArticleRepository().Update(modified);
             if (res == Enum.EntityResult.Failed)
             {
@@ -145,5 +227,63 @@ namespace pavlikeMVC.Areas.AdminPanel.Controllers
             return true;
         }
 
+        public File FileSave(HttpPostedFileBase file, string folder, Enum.FileType fileType)
+        {
+            string newFullPath = "";
+            try
+            {
+                int count = 1;
+                string fileNameOnly = Path.GetFileNameWithoutExtension(file.FileName);
+                string extension = Path.GetExtension(file.FileName);
+                var mappath = "~/Content/" + "Uploads/" + folder + "/";
+                newFullPath = Path.Combine(mappath + fileNameOnly + extension);
+
+                if (!Directory.Exists(Server.MapPath(mappath)))
+                {
+                    Directory.CreateDirectory(Server.MapPath(mappath));
+                }
+
+                while (System.IO.File.Exists(Server.MapPath(newFullPath)))
+                {
+                    string tempFileName = String.Format("{0}-{1}", fileNameOnly, count++);
+                    newFullPath = Path.Combine(mappath, tempFileName + extension);
+                }
+
+                file.SaveAs(Server.MapPath(newFullPath));
+                var uploadedFile = new File
+                {
+                    Active = true,
+                    AuthorId = new AuthenticatedAuthor().Id,
+                    Extension = extension,
+                    FileType = fileType,
+                    FileName = fileNameOnly,
+                    Folder = folder,
+                    Url = newFullPath,
+                    UploadDateTime = DateTime.Now,
+                    Title = fileNameOnly
+                };
+
+                return new FileRepository().Create(uploadedFile) == Enum.EntityResult.Failed ? null : uploadedFile;
+            }
+            catch (Exception)
+            {
+                System.IO.File.Delete(Server.MapPath(newFullPath));
+                return null;
+            }
+        }
+
+        public bool FileDelete(File file)
+        {
+            if (file == null) return true;
+            if (System.IO.File.Exists(Server.MapPath(file.Url)))
+            {
+                System.IO.File.Delete(Server.MapPath(file.Url));
+            }
+            return new FileRepository().Delete(file) != Enum.EntityResult.Failed;
+        }
+
     }
+
+
+
 }

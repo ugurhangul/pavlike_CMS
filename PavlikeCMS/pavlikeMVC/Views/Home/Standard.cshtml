@@ -1,9 +1,11 @@
-﻿@model PavlikeDATA.Models.Page
+﻿@using PavlikeDATA.Repos
+@model PavlikeDATA.Models.Page
 
 @if (Model.ArticleCollection.Count > 0)
 {
     foreach (var article in Model.ArticleCollection)
     {
+        <p>@(new FileRepository().FindbyId(article.Media.FileId).Url)</p> 
        <h3>@article.Title</h3>   
         @Html.Raw(article.Content)
         <br/>
