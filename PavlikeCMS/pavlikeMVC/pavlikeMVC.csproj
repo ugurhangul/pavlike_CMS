@@ -1175,6 +1175,7 @@
     <Content Include="Scripts\ckeditor\skins\bootstrapck\sample\js\jquery-1.11.0.min.js" />
     <Content Include="Scripts\ckeditor\styles.js" />
     <Content Include="Scripts\gmaps.min.js" />
+    <Content Include="Scripts\googlemapsapi.js" />
     <Content Include="Scripts\imagesloaded.pkgd.min.js" />
     <Content Include="Scripts\jqsimplemenu.js" />
     <Content Include="Scripts\jquery.appear.min.js" />
@@ -1224,6 +1225,7 @@
     <None Include="Areas\AdminPanel\Views\Files\Documents.cshtml.old" />
     <Content Include="Areas\AdminPanel\Views\Files\Slider.cshtml" />
     <Content Include="Areas\AdminPanel\Views\Files\SliderCreate.cshtml" />
+    <Content Include="Areas\AdminPanel\Views\Files\MediaCreate.cshtml" />
     <None Include="Areas\AdminPanel\Views\Files\_documentList.cshtml.old" />
     <None Include="Areas\AdminPanel\Views\Files\_documentCreate.cshtml.old" />
     <Content Include="Scripts\ckeditor\CHANGES.md" />
@@ -1237,6 +1239,8 @@
     <None Include="Areas\AdminPanel\Views\Settings\Index.cshtml" />
     <Content Include="Areas\AdminPanel\Views\ThemeOptions\Index.cshtml" />
     <Content Include="Areas\AdminPanel\Views\ThemeOptions\Views.cshtml" />
+    <Content Include="Areas\AdminPanel\Views\ThemeOptions\RegisterView.cshtml" />
+    <Content Include="Areas\AdminPanel\Views\ThemeOptions\ViewList.cshtml" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Icon.png" />
     <Content Include="Scripts\base_forms_validation.js" />

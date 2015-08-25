@@ -1,40 +1,22 @@
 ﻿@model List<PavlikeDATA.Models.View>
 
 @{
-    ViewBag.Title = "Views";
+    ViewBag.Title = "Viewlar";
     Layout = "~/Areas/AdminPanel/Views/Shared/_AdminPanelLayout.cshtml";
 }
 
-<h2>Views</h2>
+<div class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="block">
+                <div class="block-header">
+                    <button onclick="ActionElement(this)" link="@Url.Action("RegisterView")" title="Yeni View" confirmtext="Ekle" form="viewForm" class="btn btn-success push-5-r push-10" type="button"><i class="fa fa-plus"></i> Yeni View Ekle</button>
+                   </div>
+                <div class="block-content">
+                    <div id="elementList" link="@Url.Action("ViewList")"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.ViewFileName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ViewName)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ViewFileName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ViewName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
-
-</table>
+</div>

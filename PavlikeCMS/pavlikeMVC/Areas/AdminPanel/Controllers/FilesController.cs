@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using pavlikeLibrary;
@@ -156,6 +157,34 @@ namespace pavlikeMVC.Areas.AdminPanel.Controllers
             }
 
         }
+
+        [HttpGet]
+        public ActionResult MediaCreate()
+        {
+            return View();
+        }
+        [HttpPost]
+        public HttpStatusCode MediaCreate(HttpPostedFileBase file)
+        {
+            //var file = Request.Files[0];
+
+            if (!(file?.ContentLength > 0)) return HttpStatusCode.NoContent;
+            var res = FileSave(file, "Media", Enum.FileType.Media);
+            if (res == null)
+            {
+                return HttpStatusCode.InternalServerError;
+            }
+            var media = new Media
+            {
+                Active = true,
+                AuthorId = new AuthenticatedAuthor().Id,
+                CreateDateTime = DateTime.Now,
+                FileId = res.Id,
+                Title = res.Title
+            };
+            return new MediaRepository().Create(media) == Enum.EntityResult.Failed ? HttpStatusCode.InternalServerError : HttpStatusCode.OK;
+        }
+
         [HttpPost]
         public bool _mediaEdit(Media media)
         {
@@ -341,7 +370,21 @@ namespace pavlikeMVC.Areas.AdminPanel.Controllers
             {
                 this.AddToastMessage("", "Görsel seçmelisiniz", Enum.ToastrType.Warning);
                 return View(model);
-                }
+            }
+
+            Stream fs = uploadedFile.InputStream;
+            fs.Position = 0;
+            byte[] content = new byte[uploadedFile.ContentLength];
+            fs.Read(content, 0, uploadedFile.ContentLength);
+            var image = System.Drawing.Image.FromStream(new MemoryStream(content));
+            var slidersetting = new SettingRepository().SliderSettings();
+            if (image.Width > slidersetting.Width && image.Height > slidersetting.Height)
+            {
+                this.AddToastMessage("", "Genişlik " + slidersetting.Width + "px. Yükseklik " + slidersetting.Height + "px. olmalı.", Enum.ToastrType.Warning);
+                this.AddToastMessage("", "Ayarlar sayfasından değerleri değiştirebilirsiniz.");
+
+                return View(model);
+            }
 
             var file = FileSave(uploadedFile, "Slider", Enum.FileType.Media);
             if (file == null)
@@ -349,6 +392,8 @@ namespace pavlikeMVC.Areas.AdminPanel.Controllers
                 this.AddToastMessage("", "Görsel yüklenirken hata!", Enum.ToastrType.Error);
                 return View(model);
             }
+
+
             model.AuthorId = new AuthenticatedAuthor().Id;
             model.FileId = file.Id;
             var res = new SliderRepository().Create(model);
@@ -396,16 +441,16 @@ namespace pavlikeMVC.Areas.AdminPanel.Controllers
             if (res == Enum.EntityResult.Failed)
             {
                 this.AddToastMessage("", "Slider silinirken hata", Enum.ToastrType.Error);
-          
+
             }
             else
             {
                 this.AddToastMessage("", "Slider silme başarılı", Enum.ToastrType.Success);
             }
-            
-       
+
+
         }
-#endregion 
+        #endregion
         #region FileWorks
 
         public File FileSave(HttpPostedFileBase file, string folder, Enum.FileType fileType)

@@ -14,8 +14,6 @@
         @Html.HiddenFor(model => model.Active)
         @Html.HiddenFor(model => model.AuthorId)
         @Html.HiddenFor(model => model.Id)
-        @Html.HiddenFor(model => model.RootPage)
-
     }
 
     @Html.ValidationSummary(true, "", new { @class = "help-block text-right text-danger" })
@@ -48,7 +46,7 @@
     <div class="form-group">
         <div class="col-xs-12">
             <div class="form-material">
-                @Html.DropDownListFor(model => model.RootPage, null, "Seçiniz", new { @class = "form-control", @placeholder = "Üst Sayfa Adı",@value="0" } )
+                @Html.DropDownListFor(model => model.RootPage, null, "Seçiniz", new { @class = "form-control", @placeholder = "Üst Sayfa Adı", @value = "0" })
                 @Html.LabelFor(model => model.RootPage)
                 @Html.ValidationMessageFor(m => m.RootPage, null, new { @class = "help-block text-right text-danger" })
             </div>
@@ -57,9 +55,9 @@
     <div class="form-group">
         <div class="col-xs-12">
             <div class="form-material">
-                @Html.DropDownListFor(model => model.ViewId, new SelectList(new ThemeOptionsRepository().GetViews(),"Id","ViewName",Model.ViewId),  new { @class = "form-control", @placeholder = "Sayfa Taslağı"})
-                @Html.LabelFor(model => model.RootPage)
-                @Html.ValidationMessageFor(m => m.RootPage, null, new { @class = "help-block text-right text-danger" })
+                @Html.DropDownListFor(model => model.ViewId, new SelectList(new ThemeOptionsRepository().GetViews(), "Id", "ViewName", Model.ViewId), new { @class = "form-control", @placeholder = "Sayfa Taslağı" })
+                @Html.LabelFor(model => model.ViewId)
+                @Html.ValidationMessageFor(m => m.ViewId, null, new { @class = "help-block text-right text-danger" })
             </div>
         </div>
     </div>
@@ -98,6 +96,6 @@
         str = strArray.join('');
         var clearStr = str.replace(" ", "-").replace("--", "-").replace(/[^a-z0-9-.çöşüğı]/gi, "").toLowerCase();
         $("#Url").val(clearStr);
-        });
+    });
 
 </script>

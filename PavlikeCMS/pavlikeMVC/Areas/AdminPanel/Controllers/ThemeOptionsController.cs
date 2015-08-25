@@ -19,6 +19,11 @@ namespace pavlikeMVC.Areas.AdminPanel.Controllers
         }
         public ActionResult Views()
         {
+            return View();
+        }
+
+        public ActionResult ViewList()
+        {
             return View(_repository.GetViews());
         }
 
@@ -29,41 +34,45 @@ namespace pavlikeMVC.Areas.AdminPanel.Controllers
 
 
         [HttpPost]
-        public ActionResult Create(View model)
+        public bool RegisterView(View model)
         {
             if (!ModelState.IsValid)
             {
                 this.AddToastMessage("", "Alanları Kontrol Ediniz", Enum.ToastrType.Warning);
-                return View(model);
+                return false;
             }
             var res = _repository.RegisterView(model);
             if (res == Enum.EntityResult.Success)
             {
                 this.AddToastMessage("", "View Kaydedildi", Enum.ToastrType.Success);
-                return RedirectToAction("Views");
+                return true;
 
             }
             else
             {
                 this.AddToastMessage("", "View Kaydedilirken Hata", Enum.ToastrType.Error);
-                return View(model);
-
+                return false;
             }
-
         }
 
+        [HttpGet]
+        public string DeleteView()
+        {
+            return "View silinsin mi ?";
+        }
 
         [HttpPost]
-        public void Delete(int id)
+        public bool DeleteView(int id)
         {
             if (_repository.DeleteView(id) == Enum.EntityResult.Success)
             {
                 this.AddToastMessage("", "View Silindi", Enum.ToastrType.Success);
-            }
+                }
             else
             {
                 this.AddToastMessage("", "View Silinirken Hata", Enum.ToastrType.Error);
             }
+            return true;
         }
     }
 }
