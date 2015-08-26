@@ -1,0 +1,29 @@
+﻿@model IEnumerable<PavlikeDATA.Models.Link>
+
+<table class="table table-striped table-borderless table-header-bg">
+    <thead>
+        <tr>
+
+            <th>@Html.DisplayNameFor(model => model.Title)</th>
+            <th class="hidden-xs" style="width: 15%;">@Html.DisplayNameFor(model => model.Url)</th>
+            <th class="text-center" style="width: 100px;">EYLEMLER</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Title)</td>
+
+                <td>@Html.DisplayFor(modelItem => item.Url)</td>
+
+                <td class="text-center">
+                    <div class="btn-group">
+                        <button onclick="ActionElement(this)" link="@Url.Action("_Edit", new {@id = item.Id})" title="@item.Title - Düzenle" confirmtext="Kaydet" form="linkForm" class="btn btn-xs btn-default" type="button"><i class="fa fa-pencil"></i></button>
+                        <button onclick="ActionElement(this)" link="@Url.Action("_disable", new {@id = item.Id})" title="@item.Title - Sil" confirmtext="Sil" form="" class="btn btn-xs btn-default" type="button" data-toggle="tooltip" data-original-title="Sil"><i class="fa fa-times"></i></button>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

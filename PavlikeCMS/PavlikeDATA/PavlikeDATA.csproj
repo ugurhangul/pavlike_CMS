@@ -85,14 +85,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\201508241244495_First.cs" />
-    <Compile Include="Migrations\201508241244495_First.Designer.cs">
-      <DependentUpon>201508241244495_First.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201508241436253_Firsts.cs" />
-    <Compile Include="Migrations\201508241436253_Firsts.Designer.cs">
-      <DependentUpon>201508241436253_Firsts.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Album.cs" />
     <Compile Include="Models\AlbumMedia.cs" />
@@ -103,10 +95,9 @@
     <Compile Include="Models\Document.cs" />
     <Compile Include="Models\EntityLog.cs" />
     <Compile Include="Models\File.cs" />
-    <Compile Include="Models\Initializer.cs" />
+    <Compile Include="Models\Link.cs" />
     <Compile Include="Models\Media.cs" />
     <Compile Include="Models\Page.cs" />
-    <Compile Include="Models\Seo.cs" />
     <Compile Include="Models\Settings.cs" />
     <Compile Include="Models\Slider.cs" />
     <Compile Include="Models\Social.cs" />
@@ -118,6 +109,7 @@
     <Compile Include="Repos\AuthorRepository.cs" />
     <Compile Include="Repos\DocumentRepository.cs" />
     <Compile Include="Repos\FileRepository.cs" />
+    <Compile Include="Repos\LinkRepository.cs" />
     <Compile Include="Repos\MediaRepository.cs" />
     <Compile Include="Repos\PageRepository.cs" />
     <Compile Include="Repos\SettingRepository.cs" />
@@ -135,14 +127,6 @@
       <Project>{c6ea8853-f835-4ef5-907b-c40abb5c3960}</Project>
       <Name>pavlikeLibrary</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201508241244495_First.resx">
-      <DependentUpon>201508241244495_First.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201508241436253_Firsts.resx">
-      <DependentUpon>201508241436253_Firsts.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

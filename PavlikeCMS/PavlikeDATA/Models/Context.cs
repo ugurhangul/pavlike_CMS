@@ -45,7 +45,6 @@ namespace PavlikeDATA.Models
         public virtual DbSet<File> Files { get; set; }
         public virtual DbSet<Media> Medias { get; set; }
         public virtual DbSet<Page> Pages { get; set; }
-        public virtual DbSet<Seo> Seos { get; set; }
         public virtual DbSet<Settings> Settings { get; set; }
         public virtual DbSet<Slider> Sliders { get; set; }
         public virtual DbSet<Social> Socials { get; set; }

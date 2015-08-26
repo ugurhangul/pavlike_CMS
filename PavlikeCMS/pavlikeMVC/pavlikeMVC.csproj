@@ -189,6 +189,7 @@
     <Compile Include="Areas\AdminPanel\Controllers\HomeController.cs" />
     <Compile Include="Areas\AdminPanel\Controllers\ArticlesController.cs" />
     <Compile Include="Areas\AdminPanel\Controllers\FilesController.cs" />
+    <Compile Include="Areas\AdminPanel\Controllers\LinkController.cs" />
     <Compile Include="Areas\AdminPanel\Controllers\PagesController.cs" />
     <Compile Include="Areas\AdminPanel\Controllers\SettingsController.cs" />
     <Compile Include="Areas\AdminPanel\Controllers\ThemeOptionsController.cs" />
@@ -1236,6 +1237,9 @@
     <Content Include="Scripts\ckeditor\plugins\scayt\README.md" />
     <Content Include="Scripts\ckeditor\plugins\wsc\LICENSE.md" />
     <Content Include="Scripts\ckeditor\plugins\wsc\README.md" />
+    <Content Include="Areas\AdminPanel\Views\Link\Index.cshtml" />
+    <Content Include="Areas\AdminPanel\Views\Link\_linkList.cshtml" />
+    <Content Include="Areas\AdminPanel\Views\Link\_Create.cshtml" />
     <None Include="Areas\AdminPanel\Views\Settings\Index.cshtml" />
     <Content Include="Areas\AdminPanel\Views\ThemeOptions\Index.cshtml" />
     <Content Include="Areas\AdminPanel\Views\ThemeOptions\Views.cshtml" />
