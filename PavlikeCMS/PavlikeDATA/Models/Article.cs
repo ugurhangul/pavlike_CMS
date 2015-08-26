@@ -33,7 +33,9 @@ namespace PavlikeDATA.Models
         [Display(Name = "Öne Çıkarılan Fotoğraf")]
         public int? MediaId { get; set; }
         public virtual Media Media { get; set; }
-
+        [Display(Name = "Dış bağlantı")]
+        [DataType(DataType.Url)]
+        public string Url { get; set; }
     }
 }
 
