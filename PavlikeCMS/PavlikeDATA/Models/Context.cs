@@ -17,7 +17,6 @@ namespace PavlikeDATA.Models
     }
     public class Context : IdentityDbContext<ApplicationUser>
     {
-
         public Context()
                 : base("pavlikeCMS_DBModel")
         {
@@ -27,7 +26,6 @@ namespace PavlikeDATA.Models
         {
             return new Context();
         }
-
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
@@ -49,6 +47,8 @@ namespace PavlikeDATA.Models
         public virtual DbSet<Slider> Sliders { get; set; }
         public virtual DbSet<Social> Socials { get; set; }
         public virtual DbSet<View> Views { get; set; }
+        public virtual DbSet<Link> Links { get; set; }
+
         #endregion
     }
 
