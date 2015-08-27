@@ -41,7 +41,7 @@ namespace PavlikeDATA.Migrations
                 Title = "PavlikeCMS",
                 Description = "pavlikeCMS - Asp.Net MVC için açık kaynaklı içerik yönetim sistemi",
                 MetaTags = "pavlike,CMS,Asp,Asp.net,MVC,için,açık,kaynak,içerik,yönetim,sistemi",
-                Url = "pavlikeCMS.com",
+                Url = "http://pavlikecms.com/",
                 AdminEmail = "cms@sitem.com",
                 MailServer = "mail.sitem.com",
                 MailPort = 587,

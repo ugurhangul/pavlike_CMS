@@ -103,7 +103,7 @@ namespace pavlikeMVC.Areas.AdminPanel.Controllers
         {
             var item = new ArticleRepository().FindbyId(id);
             ViewBag.PageId = new SelectList(new PageRepository().GetAll(), "Id", "Title");
-            ViewBag.ArticleTypeId = new SelectList(new ArticleRepository().GetAll(), "Id", "Title", item.ArticleTypeId);
+            ViewBag.ArticleTypeId = new SelectList(new ArticleRepository().Types(), "Id", "Title", item.ArticleTypeId);
             return PartialView("_Create", item);
         }
 

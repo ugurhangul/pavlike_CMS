@@ -1,6 +1,6 @@
 ﻿@model PavlikeDATA.Models.Page
 @{
-    var setting = new PavlikeDATA.Repos.SettingRepository().GetSettings();
+    var setting = new PavlikeDATA.Repos.SettingRepository().SiteSettings();
     var map = new PavlikeDATA.Repos.SettingRepository().GoogleMapSettings();
 }
 @if (Model.ArticleCollection.Count > 0)
@@ -13,9 +13,7 @@
     }
 }
 
-
-
-@if (setting.ContactForm)
+@if (new PavlikeDATA.Repos.SettingRepository.ContactSetting().ContactForm)
 {
     <form class="form-horizontal" action="frontend_contact.html" method="post">
         <div class="form-group">
@@ -74,21 +72,21 @@
     <div class="bg-white" id="js-map-contact" style="height: 350px;">
 
     </div>
-        <script>
+    <script>
 
-            new GMaps({
-                div: '#js-map-contact',
-                lat: @map.Latitude,
-                lng: @map.Longitude,
-                zoom: 15,
-                disableDefaultUI: true,
-                scrollwheel: true
-            }).addMarkers([
-                {lat: @map.Latitude, lng: @map.Longitude, title: '@setting.Title', animation: google.maps.Animation.DROP, infoWindow: {content: '<strong>@map.Content</strong>'}}
-            ]);
+        new GMaps({
+            div: '#js-map-contact',
+            lat: @map.Latitude,
+            lng: @map.Longitude,
+            zoom: 15,
+            disableDefaultUI: true,
+            scrollwheel: true
+        }).addMarkers([
+            {lat: @map.Latitude, lng: @map.Longitude, title: '@map.Title', animation: google.maps.Animation.DROP, infoWindow: {content: '<strong>@map.Content</strong>'}}
+        ]);
 
 
-        </script>
+    </script>
 }
 
 

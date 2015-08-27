@@ -31,9 +31,9 @@ namespace PavlikeDATA.Repos
             }
         }
 
-        public File FindbyId(int id)
+        public File FindbyId(int? id)
         {
-            return _db.Files.SingleOrDefault(c => c.Id == id);
+            return id == null ? null : _db.Files.SingleOrDefault(c => c.Id == id);
         }
 
         public Enum.EntityResult Update(File modified)

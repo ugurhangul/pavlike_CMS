@@ -19,8 +19,7 @@ namespace pavlikeMVC.Areas.AdminPanel.Controllers
 
         public ActionResult Index()
         {
-            var setting = _repository.GetSettings();
-            return View("Index",setting);
+            return View("Index", _repository.GetAllSettings());
         }
         [HttpPost]
         [ValidateAntiForgeryToken]

@@ -1,5 +1,5 @@
 ﻿@{
-    var setting = new PavlikeDATA.Repos.SettingRepository().GetSettings();
+    var setting = new PavlikeDATA.Repos.SettingRepository().SiteSettings();
 }
 <!DOCTYPE html>
 <html class="no-focus">
@@ -36,9 +36,10 @@
                 <ul class="nav-header pull-left">
                     <li class="header-content">
                         <a class="h5" href="@Url.Content(setting.Url)">
-                            @if (setting.LogoId != null)
+                            @if (setting.LogoUrl != null)
                             {
-                                <img src="@Url.Content(new PavlikeDATA.Repos.MediaRepository().FindbyId(setting.LogoId).File.Url)" alt="@setting.Title" />
+                                <img src="@Url.Content(setting.LogoUrl)" alt="@setting.Title" />
+                                @*<img src="@Url.Content(new PavlikeDATA.Repos.MediaRepository().FindbyId(setting.LogoId).File.Url)" alt="@setting.Title" />*@
                             }
                             else
                             {

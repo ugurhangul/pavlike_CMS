@@ -85,6 +85,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Migrations\201508261316175_Kurulum.cs" />
+    <Compile Include="Migrations\201508261316175_Kurulum.Designer.cs">
+      <DependentUpon>201508261316175_Kurulum.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Album.cs" />
     <Compile Include="Models\AlbumMedia.cs" />
@@ -127,6 +131,11 @@
       <Project>{c6ea8853-f835-4ef5-907b-c40abb5c3960}</Project>
       <Name>pavlikeLibrary</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201508261316175_Kurulum.resx">
+      <DependentUpon>201508261316175_Kurulum.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
