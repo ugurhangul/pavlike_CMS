@@ -10,9 +10,9 @@ namespace PavlikeDATA.Repos
     public class ArticleRepository
     {
         readonly Context _db = new Context();
-        public List<Article> GetAll()
+        public List<Article> GetAll(int? typeId)
         {
-            return _db.Articles.Where(c => c.Active).OrderBy(c => c.Title).Include(c => c.Media).Include(c => c.Author).Include(c => c.ArticleType).Include(c => c.Page).ToList();
+            return typeId == null? _db.Articles.Where(c => c.Active).OrderBy(c => c.Title).Include(c => c.Media).Include(c => c.Author).Include(c => c.ArticleType).Include(c => c.Page).ToList() : _db.Articles.Where(c => c.Active && c.ArticleTypeId == typeId).OrderBy(c => c.Title).Include(c => c.Media).Include(c => c.Author).Include(c => c.ArticleType).Include(c => c.Page).ToList();
         }
 
         public List<ArticleType> Types()

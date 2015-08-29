@@ -19,9 +19,10 @@ namespace pavlikeMVC.Areas.AdminPanel.Controllers
             return View();
         }
 
-        public PartialViewResult _List()
+        public PartialViewResult _List(int? typeId)
         {
-            return PartialView(new ArticleRepository().GetAll());
+            var list = new ArticleRepository().GetAll(typeId);
+            return PartialView(list);
         }
 
         [HttpGet]

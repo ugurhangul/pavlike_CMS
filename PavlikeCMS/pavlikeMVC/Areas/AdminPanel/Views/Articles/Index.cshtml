@@ -13,9 +13,12 @@
                     <a id="" class="btn btn-success push-5-r push-10" href="@Url.Action("_Create")" type="button"><i class="fa fa-plus"></i> Yeni Makale Ekle</a>
                     <button onclick="ActionElement(this)" link="@Url.Action("_createType")" title="Yeni Makale Tipi" confirmtext="Ekle" form="tipForm" class="btn btn-warning push-5-r push-10" type="button"><i class="fa fa-plus"></i> Yeni Makale Tipi Ekle</button>
 
-                
+
                 </div>
+
                 <div class="block-content">
+                    @Html.DropDownList("ArticleTypeSearch", new SelectList(new PavlikeDATA.Repos.ArticleRepository().Types(), "Id", "Title"), "Seçiniz")
+
                     <div id="elementList" link="@Url.Action("_List")"></div>
                 </div>
             </div>
@@ -23,3 +26,19 @@
     </div>
 
 </div>
+<script>
+
+    $("#ArticleTypeSearch").on("change", function () {
+        $("#elementList").html(null);
+
+        var listget = new XMLHttpRequest();
+        var url = $("#elementList").attr("link") + "?typeId=" + $(this).val() + "&ftimestamp=" + new Date().getTime();
+
+        listget.open("GET", url, false);
+        listget.send(null);
+        $("#elementList").html(listget.responseText);
+
+
+
+    })
+</script>

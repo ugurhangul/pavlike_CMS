@@ -14,7 +14,8 @@
     <link href="~/Content/image-picker.css" rel="stylesheet" />
     <link href="~/Content/toastr.css" rel="stylesheet" />
     <link href="~/Content/pavlikeCMS.css" rel="stylesheet" />
-    <link href="~/Content/jquery.tagsinput.min.css" rel="stylesheet"/>
+    <link href="~/Content/jquery.tagsinput.min.css" rel="stylesheet" />
+    <link href="~/Content/jquery.dataTables.min.css" rel="stylesheet" />
 
     <script src="~/Scripts/jquery-2.1.4.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
@@ -30,6 +31,7 @@
     <script src="~/Scripts/toastr.min.js"></script>
     <script src="~/Scripts/jquery.tagsinput.min.js"></script>
     <script src="~/Scripts/masonry.pkgd.min.js"></script>
+    <script src="~/Scripts/jquery.dataTables.min.js"></script>
 </head>
 <body>
     <div id="page-container" class="sidebar-l sidebar-o side-scroll header-navbar-fixed">
@@ -144,6 +146,7 @@
                 $("#elementList").html(null);
                 $("#elementList").html(xmlHttp.responseText);
             }
+
 
             var toastrget = new XMLHttpRequest();
             toastrget.open("GET", "/AdminPanel/home/_toastr?ftimestamp=" + new Date().getTime(), false);
