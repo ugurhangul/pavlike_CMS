@@ -59,9 +59,9 @@
                         <div class="form-group">
                             <div class="col-xs-12">
                                 <div class="form-material">
-                                    @Html.TextAreaFor(model => model.Content, new {@name = "ckeditor", @class = "form-control ckeditor", @placeholder = "Sayfa Sıra Numarası"})
+                                    @Html.TextAreaFor(model => model.Content, new { @name = "ckeditor", @class = "form-control ckeditor", @placeholder = "Sayfa Sıra Numarası" })
                                     @Html.LabelFor(model => model.Content)
-                                    @Html.ValidationMessageFor(m => m.Content, null, new {@class = "help-block text-right text-danger"})
+                                    @Html.ValidationMessageFor(m => m.Content, null, new { @class = "help-block text-right text-danger" })
                                 </div>
                             </div>
                         </div>
@@ -78,7 +78,7 @@
                         <div class="form-group">
                             <div class="col-sm-9">
                                 <div class="form-material form-material-primary">
-                                    <img id="onecikanfoto" style="width: 40%;margin-bottom:1%" src="@((Model.MediaId != null)? Url.Content( new PavlikeDATA.Repos.FileRepository().FindbyId(Model.Media.FileId).Url):"")" />
+                                    <img id="onecikanfoto" style="width: 40%; margin-bottom: 1%" src="@((Model.MediaId != null) ? Url.Content(new PavlikeDATA.Repos.FileRepository().FindbyId(Model.Media.FileId).Url) : "")" />
 
                                     @Html.HiddenFor(model => model.MediaId, new { htmlAttributes = new { @class = "form-control", @placeholder = "Sayfa Adı" } })
                                     <input type="file" id="photo" name="photo" />
@@ -89,6 +89,16 @@
                             </div>
                         </div>
 
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                <div class="form-material form-material-primary">
+                                    @Html.DropDownListFor(model => model.ViewId, new SelectList(new PavlikeDATA.Repos.ThemeOptionsRepository().GetViews(), "Id", "ViewName", Model.ViewId), new { @class = "form-control", @placeholder = "Sayfa Taslağı" })
+                                    @Html.LabelFor(model => model.ViewId)
+                                    @Html.ValidationMessageFor(m => m.ViewId, null, new { @class = "help-block text-right text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        
                         <div class="row">
                             <div class="col-lg-2 pull-right">
                                 <button type="submit" class="btn btn-success">Kaydet</button>

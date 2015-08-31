@@ -36,7 +36,7 @@ namespace pavlikeMVC.Areas.AdminPanel.Controllers
 
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult _Create(Article model,HttpPostedFileBase photo)
+        public ActionResult _Create(Article model, HttpPostedFileBase photo)
         {
             if (!ModelState.IsValid)
             {
@@ -45,6 +45,7 @@ namespace pavlikeMVC.Areas.AdminPanel.Controllers
                 ViewBag.PageId = new SelectList(new PageRepository().GetAll(), "Id", "Title", model.PageId);
                 return View(model);
             }
+
 
             if (photo?.ContentLength > 0)
             {
@@ -83,7 +84,7 @@ namespace pavlikeMVC.Areas.AdminPanel.Controllers
 
 
 
-
+            model.Permalink = Helper.CharacterCorrection(model.Title);
             model.AuthorId = new AuthenticatedAuthor().Id;
             var res = new ArticleRepository().Create(model);
             if (res == Enum.EntityResult.Failed)
@@ -96,7 +97,6 @@ namespace pavlikeMVC.Areas.AdminPanel.Controllers
 
             this.AddToastMessage("", "Kayıt Başarılı", Enum.ToastrType.Success);
             return RedirectToAction("Index");
-
         }
 
         [HttpGet]
@@ -110,7 +110,7 @@ namespace pavlikeMVC.Areas.AdminPanel.Controllers
 
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult _Edit(Article modified,HttpPostedFileBase photo)
+        public ActionResult _Edit(Article modified, HttpPostedFileBase photo)
         {
             if (!ModelState.IsValid)
             {
@@ -154,7 +154,7 @@ namespace pavlikeMVC.Areas.AdminPanel.Controllers
             }
 
 
-
+            modified.Permalink = Helper.CharacterCorrection(modified.Title);
             var res = new ArticleRepository().Update(modified);
             if (res == Enum.EntityResult.Failed)
             {

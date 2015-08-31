@@ -36,6 +36,13 @@ namespace PavlikeDATA.Models
         [Display(Name = "Dış bağlantı")]
         [DataType(DataType.Url)]
         public string Url { get; set; }
+        public string Permalink { get; set; }
+        [Display(Name = "Şablon")]
+        public int ViewId { get; set; }
+        public View View { get; set; }
+
+
+
     }
 }
 

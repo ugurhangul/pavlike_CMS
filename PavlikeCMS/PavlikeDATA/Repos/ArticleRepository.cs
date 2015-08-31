@@ -12,7 +12,7 @@ namespace PavlikeDATA.Repos
         readonly Context _db = new Context();
         public List<Article> GetAll(int? typeId)
         {
-            return typeId == null? _db.Articles.Where(c => c.Active).OrderBy(c => c.Title).Include(c => c.Media).Include(c => c.Author).Include(c => c.ArticleType).Include(c => c.Page).ToList() : _db.Articles.Where(c => c.Active && c.ArticleTypeId == typeId).OrderBy(c => c.Title).Include(c => c.Media).Include(c => c.Author).Include(c => c.ArticleType).Include(c => c.Page).ToList();
+            return typeId == null? _db.Articles.Where(c => c.Active).OrderBy(c => c.Title).Include(c=>c.View).Include(c => c.Media).Include(c => c.Author).Include(c => c.ArticleType).Include(c => c.Page).ToList() : _db.Articles.Where(c => c.Active && c.ArticleTypeId == typeId).OrderBy(c => c.Title).Include(c => c.Media).Include(c => c.Author).Include(c => c.ArticleType).Include(c => c.Page).ToList();
         }
 
         public List<ArticleType> Types()
@@ -37,7 +37,7 @@ namespace PavlikeDATA.Repos
 
         public Article FindbyId(int id)
         {
-            return _db.Articles.SingleOrDefault(c => c.Id == id);
+            return _db.Articles.Include(c=> c.View).Include(c=>c.Author).SingleOrDefault(c => c.Id == id);
 
         }
 

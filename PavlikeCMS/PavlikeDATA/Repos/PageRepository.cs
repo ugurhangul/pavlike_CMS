@@ -12,7 +12,7 @@ namespace PavlikeDATA.Repos
         readonly Context _db = new Context();
         public List<Page> GetAll()
         {
-           return _db.Pages.Where(c => c.Active).Include(c=>c.View).Include(c => c.Author).OrderBy(c => c.PageOrder).ToList();
+            return _db.Pages.Where(c => c.Active).Include(c => c.View).Include(c => c.Author).OrderBy(c => c.RootPage).ToList();
         }
 
         public List<Page> GetforPublish()
@@ -39,7 +39,7 @@ namespace PavlikeDATA.Repos
 
         public Page FindbyUrl(string url)
         {
-            return _db.Pages.Where(c=> c.Url == url).Include(x=> x.ArticleCollection).SingleOrDefault();
+            return _db.Pages.Where(c => c.Url == url).Include(x => x.ArticleCollection).SingleOrDefault();
         }
 
         public Page FindbyId(int? id)

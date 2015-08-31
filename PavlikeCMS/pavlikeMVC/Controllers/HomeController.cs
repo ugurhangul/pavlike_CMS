@@ -13,6 +13,7 @@ namespace pavlikeMVC.Controllers
     public class HomeController : Controller
     {
         readonly PageRepository _page = new PageRepository();
+        readonly ArticleRepository _article = new ArticleRepository();
         readonly AlbumRepository _galleries = new AlbumRepository();
         readonly MediaRepository _medias = new MediaRepository();
 
@@ -34,7 +35,7 @@ namespace pavlikeMVC.Controllers
             var page = _page.FindbyUrl(url);
             if (page != null)
             {
-            return View(page.View.ViewFileName, page);
+                return View(page.View.ViewFileName, page);
             }
             else
             {
@@ -54,7 +55,12 @@ namespace pavlikeMVC.Controllers
             var medias = _galleries.FindbyId(id).AlbumMediaCollection.ToList().Select(item => _medias.FindbyId(item.MediaId)).ToList();
             return View("Media", medias);
         }
-
+        [Route("makaledetay/{url}/{id}")]
+        public ActionResult HaberDetay(string url, int id)
+        {
+            var article = _article.FindbyId(id);
+            return View(article.View.ViewFileName, article);
+        }
 
     }
 }
